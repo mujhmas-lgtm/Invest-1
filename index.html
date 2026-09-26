@@ -500,7 +500,7 @@ function renderRiwayatWithdraw() {
 }
 
 // ---------- 8. ALAMAT PENARIKAN ----------
-function renderAlamatWithdraw() {
+function renderAlamatWithdraw() {if (amount < 50000) { alert('Minimal Rp 35.000 bos!'); return; }
   const u = currentUser();
   const wrap = document.createElement('div');
   wrap.innerHTML = `
