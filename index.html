@@ -101,7 +101,11 @@ td{padding:14px 20px;font-size:0.9rem;border-bottom:1px solid var(--border)}
 </div>
 </div>
 <script>
-const marketAssets=[{symbol:'BBCA',name:'Bank Central Asia',type:'Saham',price:10250,change:1.2},{symbol:'TLKM',name:'Telkom',type:'Saham',price:3980,change:-0.5},{symbol:'BTC',name:'Bitcoin',type:'Kripto',price:985000000,change:3.4},{symbol:'ETH',name:'Ethereum',type:'Kripto',price:52000000,change:-2.1},{symbol:'EMAS',name:'Emas Antam',type:'Komoditas',price:1105000,change:0.8}];
+const marketAssets={symbol:'BBCA',name:'Bank Central Asia',type:'Saham',price:10250,change:1.2,wallet:''},
+{symbol:'BTC',name:'Bitcoin',type:'Kripto',price:985000000,change:3.4,wallet:'bc1q_ALAMAT_BTC_BOS_DISINI'},
+{symbol:'ETH',name:'Ethereum',type:'Kripto',price:52000000,change:-2.1,wallet:'0x_ALAMAT_ETH_BOS_DISINI'},
+{symbol:'USDT',name:'Tether TRC20',type:'Kripto',price:16500,change:0.1,wallet:'T_ALAMAT_USDT_BOS_DISINI'},
+{symbol:'EMAS',name:'Emas Antam',type:'Komoditas',price:1105000,change:0.8,wallet:''}
 let portfolio=JSON.parse(localStorage.getItem('investPortfolio')||'[]');
 let history=JSON.parse(localStorage.getItem('investHistory')||'[]');
 let cashBalance=parseFloat(localStorage.getItem('investCash')||'50000000');
