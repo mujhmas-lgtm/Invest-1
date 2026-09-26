@@ -3,689 +3,1808 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>InvestPro - Platform Investasi Terpercaya</title>
+    <title>CryptoVest - Investasi Crypto</title>
     <style>
-        /* ========== RESET & VARIABLES ========== */
         :root {
-            --primary: #0d6efd;
-            --primary-dark: #0b5ed7;
-            --secondary: #10b981;
-            --dark: #0f172a;
-            --gray-900: #1e293b;
-            --gray-800: #334155;
-            --gray-600: #64748b;
-            --gray-400: #94a3b8;
-            --gray-200: #e2e8f0;
-            --gray-100: #f1f5f9;
-            --white: #ffffff;
-            --gold: #f59e0b;
-            --red: #ef4444;
-            --shadow: 0 4px 24px rgba(0,0,0,.08);
-            --shadow-lg: 0 12px 40px rgba(0,0,0,.12);
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a2e;
+            --bg-sidebar: #0d0d18;
+            --gold: #f0b90b;
+            --gold-light: #fcd535;
+            --green: #0ecb81;
+            --red: #f6465d;
+            --text-primary: #eaecef;
+            --text-secondary: #848e9c;
+            --text-muted: #5e6673;
+            --border: #2b2b3a;
+            --blue-accent: #3b82f6;
+            --purple-accent: #8b5cf6;
+            --gradient-1: linear-gradient(135deg, #f0b90b, #f7931a);
+            --gradient-2: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            --gradient-3: linear-gradient(135deg, #0ecb81, #3b82f6);
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
             --radius: 12px;
-            --transition: 0.3s ease;
+            --radius-sm: 8px;
+            --transition: 0.2s ease;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-            color: var(--gray-800);
-            background: var(--white);
-            line-height: 1.6;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
             overflow-x: hidden;
         }
 
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-
-        /* ========== NAVBAR ========== */
-        .navbar {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-            background: rgba(255,255,255,0.92); backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--gray-200);
-            transition: var(--transition);
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 5px;
         }
-        .navbar.scrolled { box-shadow: var(--shadow); }
-
-        .nav-inner {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 16px 24px; max-width: 1200px; margin: 0 auto;
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #2b2b3a;
+            border-radius: 10px;
         }
 
-        .logo {
-            font-size: 1.6rem; font-weight: 800; color: var(--primary);
-            text-decoration: none; display: flex; align-items: center; gap: 8px;
-        }
-        .logo .icon { width: 36px; height: 36px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.2rem; }
-
-        .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
-        .nav-links a {
-            text-decoration: none; color: var(--gray-800); font-weight: 500;
-            font-size: 0.95rem; transition: color var(--transition); position: relative;
-        }
-        .nav-links a:hover { color: var(--primary); }
-        .nav-links a::after {
-            content: ''; position: absolute; bottom: -6px; left: 0; width: 0;
-            height: 2px; background: var(--primary); transition: width var(--transition);
-        }
-        .nav-links a:hover::after { width: 100%; }
-
-        .btn {
-            display: inline-block; padding: 10px 24px; border-radius: 8px;
-            font-weight: 600; font-size: 0.95rem; text-decoration: none;
-            cursor: pointer; border: none; transition: all var(--transition);
-        }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,110,253,.35); }
-        .btn-outline { border: 2px solid var(--primary); color: var(--primary); background: transparent; }
-        .btn-outline:hover { background: var(--primary); color: #fff; }
-        .btn-secondary { background: var(--secondary); color: #fff; }
-        .btn-secondary:hover { background: #059669; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(16,185,129,.35); }
-
-        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
-        .hamburger span { width: 28px; height: 3px; background: var(--dark); border-radius: 4px; transition: var(--transition); }
-
-        /* ========== HERO ========== */
-        .hero {
-            min-height: 100vh; display: flex; align-items: center;
-            padding-top: 80px; background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 50%, #fefce8 100%);
-            position: relative; overflow: hidden;
-        }
-        .hero::before {
-            content: ''; position: absolute; top: -30%; right: -10%;
-            width: 500px; height: 500px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(13,110,253,.08) 0%, transparent 70%);
-        }
-        .hero::after {
-            content: ''; position: absolute; bottom: -10%; left: -5%;
-            width: 400px; height: 400px; border-radius: 50%;
-            background: radial-gradient(circle, rgba(16,185,129,.1) 0%, transparent 70%);
-        }
-
-        .hero-content {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: center; position: relative; z-index: 1;
-        }
-
-        .hero-text .badge {
-            display: inline-block; padding: 6px 16px; border-radius: 20px;
-            background: rgba(13,110,253,.1); color: var(--primary);
-            font-weight: 600; font-size: 0.85rem; margin-bottom: 20px;
-        }
-        .hero-text h1 {
-            font-size: 3.2rem; font-weight: 800; line-height: 1.2;
-            color: var(--dark); margin-bottom: 20px;
-        }
-        .hero-text h1 span { color: var(--primary); }
-        .hero-text p {
-            font-size: 1.15rem; color: var(--gray-600); margin-bottom: 32px; max-width: 480px;
-        }
-        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-
-        .hero-stats { display: flex; gap: 40px; margin-top: 48px; }
-        .hero-stats .stat h3 { font-size: 1.8rem; color: var(--dark); font-weight: 800; }
-        .hero-stats .stat p { font-size: 0.9rem; color: var(--gray-600); margin: 0; }
-
-        .hero-image {
-            display: flex; align-items: center; justify-content: center;
-        }
-        .dashboard-mock {
-            background: var(--white); border-radius: 20px; padding: 28px;
-            box-shadow: var(--shadow-lg); width: 100%; max-width: 480px;
-            transform: perspective(800px) rotateY(-5deg) rotateX(3deg);
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            min-width: 260px;
+            height: 100vh;
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            position: sticky;
+            top: 0;
+            z-index: 100;
             transition: transform var(--transition);
         }
-        .dashboard-mock:hover { transform: perspective(800px) rotateY(0deg) rotateX(0deg); }
 
-        .chart-bar {
-            display: flex; align-items: flex-end; gap: 12px; height: 140px; margin: 16px 0;
+        .sidebar-logo {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        .chart-bar .bar {
-            flex: 1; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, var(--secondary), #6ee7b7);
-            transition: height var(--transition);
-        }
-        .chart-bar .bar:nth-child(1) { height: 60%; }
-        .chart-bar .bar:nth-child(2) { height: 40%; }
-        .chart-bar .bar:nth-child(3) { height: 85%; }
-        .chart-bar .bar:nth-child(4) { height: 55%; }
-        .chart-bar .bar:nth-child(5) { height: 95%; }
-        .chart-bar .bar:nth-child(6) { height: 70%; }
-        .chart-bar .bar:nth-child(7) { height: 50%; }
-        .chart-bar .bar:nth-child(8) { height: 80%; }
 
-        .mock-label { font-size: 0.85rem; color: var(--gray-600); font-weight: 600; }
-        .mock-balance { font-size: 1.8rem; font-weight: 800; color: var(--dark); }
-        .mock-change { color: var(--secondary); font-weight: 600; }
+        .sidebar-logo .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 700;
+            color: #000;
+        }
 
-        /* ========== SECTION GENERAL ========== */
-        section { padding: 100px 0; }
+        .sidebar-logo .logo-text {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
 
-        .section-header { text-align: center; margin-bottom: 64px; }
-        .section-header .badge {
-            display: inline-block; padding: 6px 16px; border-radius: 20px;
-            background: rgba(13,110,253,.1); color: var(--primary);
-            font-weight: 600; font-size: 0.85rem; margin-bottom: 12px;
+        .sidebar-logo .logo-text span {
+            color: var(--gold);
         }
-        .section-header h2 { font-size: 2.4rem; font-weight: 800; color: var(--dark); margin-bottom: 12px; }
-        .section-header p { color: var(--gray-600); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
 
-        /* ========== MARKET TICKER ========== */
-        .ticker-wrap {
-            background: var(--dark); padding: 14px 0; overflow: hidden;
-            border-bottom: 1px solid rgba(255,255,255,.1);
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
         }
-        .ticker {
-            display: flex; gap: 48px; animation: ticker-scroll 30s linear infinite; white-space: nowrap;
-        }
-        @keyframes ticker-scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .ticker-item { color: #fff; font-weight: 600; font-size: 0.9rem; display: flex; gap: 8px; align-items: center; }
-        .ticker-item .up { color: var(--secondary); }
-        .ticker-item .down { color: var(--red); }
 
-        /* ========== PACKAGES ========== */
-        .packages {
-            background: var(--gray-100);
+        .nav-section {
+            margin-bottom: 8px;
         }
-        .packages-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 28px;
-        }
-        .package-card {
-            background: var(--white); border-radius: var(--radius); padding: 36px 28px;
-            box-shadow: var(--shadow); text-align: center; transition: all var(--transition);
-            border: 2px solid transparent; position: relative;
-        }
-        .package-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
-        .package-card.featured { border-color: var(--secondary); }
-        .package-card .featured-label {
-            position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
-            background: var(--secondary); color: #fff; padding: 4px 16px;
-            border-radius: 20px; font-size: 0.8rem; font-weight: 700;
-        }
-        .package-icon { font-size: 2.8rem; margin-bottom: 16px; }
-        .package-card h3 { font-size: 1.3rem; color: var(--dark); margin-bottom: 4px; }
-        .package-card .return { font-size: 2.4rem; font-weight: 800; color: var(--primary); margin: 12px 0; }
-        .package-card .return span { font-size: 1rem; color: var(--gray-600); font-weight: 500; }
-        .package-card ul { list-style: none; margin: 20px 0; text-align: left; }
-        .package-card ul li { padding: 6px 0; color: var(--gray-600); font-size: 0.9rem; }
-        .package-card ul li::before { content: '✓'; color: var(--secondary); font-weight: 700; margin-right: 8px; }
 
-        /* ========== ABOUT ========== */
-        .about-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+        .nav-section-title {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding: 12px 10px 6px;
+            font-weight: 600;
         }
-        .about-image {
-            background: linear-gradient(135deg, var(--primary), #6366f1);
-            border-radius: 20px; padding: 40px; color: #fff; text-align: center;
-        }
-        .about-image h3 { font-size: 1.8rem; margin-bottom: 8px; }
-        .about-image .big-number { font-size: 4rem; font-weight: 800; }
 
-        .about-text h2 { font-size: 2rem; font-weight: 800; color: var(--dark); margin-bottom: 16px; }
-        .about-text p { color: var(--gray-600); margin-bottom: 16px; }
-        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
-        .about-feature {
-            display: flex; gap: 12px; align-items: flex-start;
-            padding: 16px; background: var(--gray-100); border-radius: 10px;
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-size: 14px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            margin-bottom: 2px;
+            font-weight: 500;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
         }
-        .about-feature .icon { font-size: 1.5rem; }
 
-        /* ========== TESTIMONIALS ========== */
-        .testimonials-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
         }
-        .testimonial-card {
-            background: var(--white); border-radius: var(--radius); padding: 28px;
+        .nav-item.active {
+            background: rgba(240, 185, 11, 0.12);
+            color: var(--gold);
+            font-weight: 600;
+        }
+        .nav-item .nav-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .nav-item.logout-btn {
+            color: var(--red);
+            margin-top: 8px;
+            border-top: 1px solid var(--border);
+            border-radius: 0;
+            padding-top: 16px;
+            margin-top: 12px;
+        }
+        .nav-item.logout-btn:hover {
+            background: rgba(246, 70, 93, 0.08);
+        }
+
+        .sidebar-footer {
+            padding: 12px 20px;
+            border-top: 1px solid var(--border);
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .main-content {
+            flex: 1;
+            padding: 0;
+            overflow-y: auto;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            padding: 16px 28px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .topbar-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .user-badge .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--gradient-2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 12px;
+            color: #fff;
+        }
+
+        .content-area {
+            flex: 1;
+            padding: 28px;
+            overflow-y: auto;
+        }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header {
+            margin-bottom: 28px;
+        }
+        .page-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* ===== CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+        }
+        .stat-card.gold::before {
+            background: var(--gradient-1);
+        }
+        .stat-card.blue::before {
+            background: var(--gradient-2);
+        }
+        .stat-card.green::before {
+            background: var(--gradient-3);
+        }
+        .stat-card .stat-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .stat-card .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .stat-card .stat-sub {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        .stat-card .stat-icon {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 40px;
+            opacity: 0.08;
+        }
+
+        /* ===== FORMS ===== */
+        .form-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            max-width: 560px;
+        }
+        .form-card h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            color: var(--text-primary);
+            font-size: 14px;
+            font-family: inherit;
+            transition: border var(--transition);
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-group .input-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition);
+            font-family: inherit;
+        }
+        .btn-gold {
+            background: var(--gradient-1);
+            color: #000;
+        }
+        .btn-gold:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(240, 185, 11, 0.3);
+        }
+        .btn-blue {
+            background: var(--gradient-2);
+            color: #fff;
+        }
+        .btn-blue:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        .btn-sm {
+            padding: 6px 14px;
+            font-size: 12px;
+        }
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .btn-block {
+            width: 100%;
+        }
+
+        /* ===== TABLES ===== */
+        .table-wrapper {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+        table th {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 14px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+        table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(43, 43, 58, 0.5);
+            color: var(--text-secondary);
+        }
+        table tr:last-child td {
+            border-bottom: none;
+        }
+        table tr:hover td {
+            background: rgba(255, 255, 255, 0.01);
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .badge-success {
+            background: rgba(14, 203, 129, 0.15);
+            color: var(--green);
+        }
+        .badge-warning {
+            background: rgba(240, 185, 11, 0.15);
+            color: var(--gold);
+        }
+        .badge-danger {
+            background: rgba(246, 70, 93, 0.15);
+            color: var(--red);
+        }
+        .badge-info {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--blue-accent);
+        }
+        .copy-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        .copy-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .text-green {
+            color: var(--green);
+        }
+        .text-red {
+            color: var(--red);
+        }
+        .text-gold {
+            color: var(--gold);
+        }
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* ===== ALERTS & TOASTS ===== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px  20px;
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 14px;
+            z-index: 9999;
+            animation: slideInRight 0.3s ease;
+            box-shadow: var(--shadow);
+            max-width: 380px;
+        }
+        .toast.success {
+            background: #0c3d2a;
+            color: #0ecb81;
+            border: 1px solid #0ecb8133;
+        }
+        .toast.error {
+            background: #3d0c1a;
+            color: #f6465d;
+            border: 1px solid #f6465d33;
+        }
+        .toast.info {
+            background: #0c2840;
+            color: #3b82f6;
+            border: 1px solid #3b82f633;
+        }
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 48px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state .empty-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .empty-state p {
+            font-size: 14px;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            max-width: 440px;
+            width: 90%;
+        }
+        .modal h3 {
+            margin-bottom: 12px;
+        }
+        .modal p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+
+        /* ===== REFERRAL LINK BOX ===== */
+        .referral-box {
+            background: var(--bg-primary);
+            border: 1px dashed var(--gold);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+        }
+        .referral-box input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 13px;
+            outline: none;
+            font-family: monospace;
+        }
+
+        /* ===== AUTH PAGES ===== */
+        .auth-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            width: 100%;
+        }
+        .auth-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+            max-width: 440px;
+            width: 100%;
             box-shadow: var(--shadow);
         }
-        .testimonial-card .stars { color: var(--gold); font-size: 1.1rem; margin-bottom: 12px; }
-        .testimonial-card p { color: var(--gray-600); font-style: italic; margin-bottom: 16px; }
-        .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-author .avatar {
-            width: 44px; height: 44px; border-radius: 50%; background: var(--primary);
-            display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700;
+        .auth-card h1 {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 6px;
         }
-        .testimonial-author h4 { font-size: 0.95rem; color: var(--dark); }
-
-        /* ========== CTA ========== */
-        .cta {
-            background: linear-gradient(135deg, var(--primary), #6366f1);
-            color: #fff; text-align: center; border-radius: 24px;
-            padding: 64px 40px; margin: 0 24px;
+        .auth-card .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 28px;
         }
-        .cta h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 12px; }
-        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 28px; }
-        .cta .btn { background: #fff; color: var(--primary); font-size: 1rem; padding: 14px 36px; }
-        .cta .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,.2); }
-
-        /* ========== FOOTER ========== */
-        footer {
-            background: var(--dark); color: #cbd5e1; padding: 60px 0 30px;
-        }
-        .footer-grid {
-            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px;
-        }
-        .footer-brand h3 { color: #fff; font-size: 1.4rem; margin-bottom: 12px; }
-        .footer-brand p { font-size: 0.9rem; line-height: 1.7; }
-        footer h4 { color: #fff; margin-bottom: 16px; font-size: 1rem; }
-        footer ul { list-style: none; }
-        footer ul li { margin-bottom: 8px; }
-        footer ul a { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color var(--transition); }
-        footer ul a:hover { color: #fff; }
-        .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,.1); padding-top: 24px;
-            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
-            font-size: 0.85rem;
+        .auth-card .form-group:last-of-type {
+            margin-bottom: 20px;
         }
 
-        /* ========== ANIMATIONS ========== */
-        .fade-in {
-            opacity: 0; transform: translateY(30px);
-            transition: all 0.7s ease;
-        }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-
-        /* ========== RESPONSIVE ========== */
+        /* ===== RESPONISVE ===== */
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .nav-links.open {
-                display: flex; flex-direction: column;
-                position: absolute; top: 100%; left: 0; right: 0;
-                background: #fff; padding: 24px; gap: 16px;
-                border-bottom: 1px solid var(--gray-200);
-                box-shadow: var(--shadow);
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 0;
+                bottom: 0;
+                transition: left 0.3s ease;
             }
-            .hamburger { display: flex; }
-
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-text h1 { font-size: 2.2rem; }
-            .hero-text p { margin: 0 auto 32px; }
-            .hero-buttons { justify-content: center; }
-            .hero-stats { justify-content: center; }
-            .hero-image { display: none; }
-            .about-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-
-            section { padding: 60px 0; }
-            .cta { margin: 0 16px; padding: 40px 20px; }
+            .sidebar.open {
+                left: 0;
+            }
+            .menu-toggle {
+                display: block;
+            }
+            .content-area {
+                padding: 16px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .topbar {
+                padding: 12px 16px;
+            }
+            .form-card {
+                max-width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
-            .hero-stats { flex-direction: column; gap: 20px; }
-            .footer-grid { grid-template-columns: 1fr; }
-            .about-features { grid-template-columns: 1fr; }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .auth-card {
+                padding: 24px 20px;
+            }
+            table {
+                font-size: 11px;
+            }
+            table th, table td {
+                padding: 8px;
+            }
+            .user-badge span:first-of-type {
+                display: none;
+            }
+        }
+
+        /* ===== OVERLAY FOR MOBILE ===== */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 99;
+        }
+        .sidebar-overlay.show {
+            display: block;
         }
     </style>
 </head>
 <body>
 
-    <!-- ========== NAVBAR ========== -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-inner">
-            <a href="#" class="logo">
-                <div class="icon">📈</div> InvestPro
-            </a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#market">Market</a></li>
-                <li><a href="#packages">Paket</a></li>
-                <li><a href="#about">Tentang</a></li>
-                <li><a href="#testimonials">Testimoni</a></li>
-                <li><a href="#cta" class="btn btn-primary">Mulai Investasi</a></li>
-            </ul>
-            <button class="hamburger" id="hamburger" aria-label="Menu">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+    <!-- SIDEBAR OVERLAY (mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-    <!-- ========== MARKET TICKER ========== -->
-    <div class="ticker-wrap" style="margin-top:72px;">
-        <div class="ticker">
-            <span class="ticker-item">BTC <span style="color:#10b981;">+2.4%</span> $67,245</span>
-            <span class="ticker-item">ETH <span style="color:#10b981;">+1.8%</span> $3,512</span>
-            <span class="ticker-item">S&P 500 <span style="color:#10b981;">+0.6%</span> 5,234</span>
-            <span class="ticker-item">NASDAQ <span style="color:#ef4444;">-0.3%</span> 16,742</span>
-            <span class="ticker-item">IDX <span style="color:#10b981;">+1.2%</span> 7,189</span>
-            <span class="ticker-item">Gold <span style="color:#10b981;">+0.9%</span> $2,380</span>
-            <span class="ticker-item">Oil <span style="color:#ef4444;">-1.1%</span> $78.40</span>
-            <!-- Duplicate for seamless scroll -->
-            <span class="ticker-item">BTC <span style="color:#10b981;">+2.4%</span> $67,245</span>
-            <span class="ticker-item">ETH <span style="color:#10b981;">+1.8%</span> $3,512</span>
-            <span class="ticker-item">S&P 500 <span style="color:#10b981;">+0.6%</span> 5,234</span>
-            <span class="ticker-item">NASDAQ <span style="color:#ef4444;">-0.3%</span> 16,742</span>
-            <span class="ticker-item">IDX <span style="color:#10b981;">+1.2%</span> 7,189</span>
-            <span class="tickeritem">Gold <span style="color:#10b981;">+0.9%</span> $2,380</span>
-            <span class="ticker-item">Oil <span style="color:#ef4444;">-1.1%</span> $78.40</span>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebarlogo">
+            <div class="logo-icon">₿</div>
+            <div class="logo-text">Crypto<span>Vest</span></div>
+        </div>
+        <nav class="sidebar-nav" id="sidebarNav">
+            <!-- Filled by JS -->
+        </nav>
+        <div class="sidebar-footer">© 2025 CryptoVest</div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content">
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+                <span class="topbar-title" id="pageTitle">Dashboard</span>
+            </div>
+            <div class="topbar-right" id="topbarRight">
+                <!-- Filled by JS -->
+            </div>
+        </header>
+        <div class="content-area" id="contentArea">
+            <!-- Dynamic content -->
         </div>
     </div>
 
-    <!-- ========== HERO SECTION ========== -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text fade-in">
-                    <span class="badge">🚀 Platform Resmi OJK</span>
-                    <h1>Investasi <span>Cerdas</span> untuk Masa Depan Anda</h1>
-                    <p>Mulai investasi dari <strong>Rp100.000</strong> dengan return hingga <strong>15% per tahun</strong>. Aman, transparan, dan mudah dipahami.</p>
-                    <div class="hero-buttons">
-                        <a href="#packages" class="btn btn-primary">Lihat Paket Investasi</a>
-                        <a href="#about" class="btn btn-outline">Pelajari Lebih Lanjut</a>
-                    </div>
-                    <div class="hero-stats">
-                        <div class="stat">
-                            <h3>150K+</h3>
-                            <p>Investor Aktif</p>
-                        </div>
-                        <div class="stat">
-                            <h3>Rp 2.8T</h3>
-                            <p>Dana Dikelola</p>
-                        </div>
-                        <div class="stat">
-                            <h3>4.9 ⭐</h3>
-                            <p>Rating Pengguna</p>
-                        </div>
-                    <</div>
-                </div>
-                <div class="hero-image fade-in">
-                    <div class="dashboard-mock">
-                        <div style="display:flex; justify-content: space-between;">
-                            <span class="mock-label">Portfolio Anda</span>
-                            <span class="mockchange">+12.4% ↗</span>
-                        </div>
-                        <div class="mock-balance">Rp 28.450.000</div>
-                        <div class="chart-bar">
-                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-                            <div class="bar"></div><div class="bar"></div><div class="bar"></div>
-                            <div class="bar"></div><div class="bar"></div>
-                        </div>
-                        <div style="display:flex; gap: 16px; justify-content: space-between; font-size:0.8rem; color:#64748b;">
-                            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span>
-                            <span>Mei</span><span>Jun</span><span>Jul</span><span>Agu</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- TOAST CONTAINER -->
+    <div id="toastContainer"></div>
 
-    <!-- ========== PACKAGES SECTION ========== -->
-    <section id="packages">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="badge">💰 Paket Investasi</span>
-                <h2>Pilih Paket Sesuai Kebutuhan Anda</h2>
-                <p>Dari pemula hingga expert — semua bisa mulai investasi dengan mudah dan aman.</p>
-            </div>
-
-            <div class="packages-grid">
-                <!-- Paket 1 -->
-                <div class="package-card fade-in">
-                    <div class="package-icon">🌱</div>
-                    <h3>Starter</h3>
-                    <p style="color:#64748b;">Untuk pemula</p>
-                    <div class="return">8% <span>/ tahun</span></div>
-                    <ul>
-                        <li>Mulai dari Rp100.000</li>
-                        <li>Akses reksadana pasar uang</li>
-                        <li>Laporan bulanan</li>
-                        <li>Dukungan email</li>
-                        <li>Penarikan kapan saja</li>
-                    </ul>
-                    <a href="#" class="btn btn-outline" style="width:100%;">Pilih Paket</a>
-                </div>
-
-                <!-- Paket 2 (Featured) -->
-                <div class="package-card featured fade-in">
-                    <div class="featured-label">🔥 Terpopuler</div>
-                    <div class="package-icon">🚀</div>
-                    <h3>Growth</h3>
-                    <p style="color:#64748b;">Untuk investor menengah<//p>
-                    <div class="return">12% <span>/ tahun</span></div>
-                    <ul>
-                        <li>Mulai dari Rp5.000.000</li>
-                        <li>Reksadana + obligasi</li>
-                        <li>Laporan mingguan</li>
-                        <li>Prioritas support 24/7</li>
-                        <li>Auto-reinvest option</li>
-                    </ul>
-                    <a href="#" class="btn btn-primary" style="width:100%;">Pilih Paket</a>
-                </div>
-
-                <!-- Paket 3 -->
-                <div class="package-card fade-in">
-                    <div class="package-icon">💎</div>
-                    <h3>Premium</h3>
-                    <p style="color:#64748b;">Untuk investor profesional</p>
-                    <div class="return">15% <span>/ tahun</span></div>
-                    <ul>
-                        <li>Mulai dari Rp50.000.000</li>
-                        <li>Portfolio eksklusif</li>
-                        <li>Financial advisor pribadi</li>
-                        <li>Laporan real-time</li>
-                        <li>Akses IPO prioritas</li>
-                    </ul>
-                    <a href="#" class="btn btn-outline" style="width:100%;">Pilih Paket</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== ABOUT SECTION ========== -->
-    <section id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-image fade-in">
-                    <h3>Total Dana Dikelola<h3>
-                    <div class="big-number">Rp 2.8T</div>
-                    <p>Dipercaya oleh 150.000+ investor di seluruh Indonesia</p>
-                </div>
-                <div class="about-text fade-in">
-                    <span class="badge" style="margin-bottom:8px; display:inline-block;">ℹ️ Tentang Kami</span>
-                    <h2>Platform Investasi #1 di Indonesia</h2>
-                    <p>InvestPro adalah platform investasi digital yang telah berizin dan diawasi oleh <strong>OJK (Otoritas Jasa Keuangan)</strong>. Kami menyediakan berbagai instrumen investasi mulai dari reksadana, obligasi negara, hingga IPO.</p>
-                    <p>Dengan teknologi modern dan tim profesional, kami memastikan investasi Anda aman, transparan, dan menguntungkan.</p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <span class="icon">🛡️</span>
-                            <div><strong>Aman & Terpercaya</strong><br><small>Diawasi OJK</small></div>
-                        </div>
-                        <div class="about-feature">
-                            <span class="icon">⚡</span>
-                            <div><strong>Transaksi Cepat</strong><br><small>Proses < 1 menit</small></div>
-                        </div>
-                        <div class="about-feature">
-                            <span class="icon">📊</span>
-                            <div><strong>Dashboard Live</strong><br><small>Pantau real-time</small></div>
-                        </div>
-                        <div class="about-feature">
-                            <span class="icon">💬</span>
-                            <div><strong>Support 24/7</strong><br><small>CS profesional</small></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== TESTIMONIALS SECTION ========== -->
-    <section id="testimonials" style="background: var(--gray-100);">
-        <div class="container">
-            <div class="section-header fade-in">
-                <span class="badge">⭐ Testimoni</span>
-                <h2>Apa Kata Investor Kami?</h2>
-                <p>Ribuan investor telah merasakan manfaat berinvestasi bersama InvestPro.</p>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card fade-in">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Awalnya ragu investasi online, tapi setelah coba InvestPro semuanya transparan. Return Growth 12% sudah saya rasakan tahun ini!"</p>
-                    <div class="testimonial-author">
-                        <div class="avatar" style="background:#6366f1;">RA</div>
-                        <div>
-                            <h4>Rina Amanda</h4>
-                            <small style="color:#64748b;">Investor Growth</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card fade-in">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Dulu cuma bisa nabung biasa. Sekarang pake InvestPro, dana saya berkembang 15% setahun. CS-nya juga ramah banget!"<//p>
-                    <div class="testimonial-author">
-                        <div class="avatar" style="background:#10b981;">BW</div>
-                        <div>
-                            <h4>Budi Wibowo<h4>
-                            <small style="color:#64748b;">Investor Premium</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card fade-in">
-                    <div class="stars">⭐⭐⭐⭐⭐</div>
-                    <p>"Sebagai pemula, saya suka banget paket Starter-nya. Mulai dari Rp100rb doang, sekarang udah untung 8% tanpa mikir!"</p>
-                    <div class="testimonial-author">
-                        <div class="avatar" style="background:#f59e0b;">DK</div>
-                        <div>
-                            <h4>Dewi Kartika</h4>
-                            <small style="color:#64748b;">Investor Starter</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== CTA SECTION ========== -->
-    <section>
-        <div class="container">
-            <div class="cta fade-in" id="cta">
-                <h2>Siap Mulai Investasi?</h2>
-                <p>Daftar sekarang dan dapatkan bonus saldo investasi <strong>Rp50.000</strong> gratis untuk portofolio pertama Anda.</p>
-                <a href="#" class="btn">🚀 Buat Akun Gratis Sekarang</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ========== FOOTER ========== -->
-    <footer>
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h3>📈 InvestPro</h3>
-                    <p>Platform investasi digital terpercaya di Indonesia. Berizin dan diawasi OJK. Mulai investasi sekarang untuk masa depan yang lebih baik.</p>
-                </div>
-                <div>
-                    <h4>Produk</h4>
-                    <ul>
-                        <li><a href="#">Reksadana</a></li>
-                        <li><a href="#">Obligasi</a></li>
-                        <li><a href="#">Saham IPO</a></li>
-                        <li><a href="#">Emas Digital</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Perusahaan</h4>
-                    <ul>
-                        <li><a href="#">Tentang Kami</a></li>
-                        <li><a href="#">Karir</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Kontak</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4>Bantuan</h4>
-                    <ul>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Syarat & Ketentuan</a></li>
-                        <li><a href="#">Kebijakan Privasi</a></li>
-                        <li><a href="#">Hubungi CS</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2024 InvestPro. Hak Cipta Dilindungi.</span>
-                <span>Berizin & diawasi oleh OJK No. KEP-123/PM.21/2024</span>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ========== JAVASCRIPT ========== -->
     <script>
-        /* === Navbar scroll effect === */
-        const navbar = documentgetElementById('navbar');
-        windowaddEventListener('scroll', () => {
-            if (windowscrolly > 50) {
-                navbarclassListadd('scrolled');
-            } else {
-                navbarclassListremove('scrolled');
-            }
-        });
-
-        /* === Hamburger menu === */
-        const hamburger = documentgetElementById('hamburger');
-        const navLinks = documentgetElementById('navLinks');
-
-        hamburgeraddEventListener('click', () => {
-            navLinksclassListtoggle('open');
-        });
-
-        /* === Close nav on link click (mobile) === */
-        navLinksquerySelectorAll('a')forEach(link => {
-            linkaddEventListener('click', () => {
-                navLinksclassListremove('open');
-            });
-        });
-
-        /* === Fade-in on scroll (Intersection Observer) === */
-        const fadeEls = documentquerySelectorAll('.fade-in');
-
-        const observer = new IntersectionObserver((entries) => {
-            entriesforEach(entry => {
-                if (entryisIntersecting) {
-                    entrytargetclassListadd('visible');
-                }
-            });
-        }, { threshold: 0.15 });
-
-        fadeElsforEach(el => observerobserve(el));
-
-        /* === Smooth counter animation for stats === */
-        const animateCounter = (el, target, duration = 2000) => {
-            const start = 0;
-            const increment = target / (duration / 16);
-            let current = start;
-            const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                    el.textContent = targettoLocaleString() + '+';
-                    clearInterval(timer);
-                } else {
-                    el.textContent = Mathfloor(current)toLocaleString() + '+';
-                }
-            }, 16);
+        // ==================== DATABASE ====================
+        const DB_KEYS = {
+            USERS: 'cryptovest_users',
+            CURRENT_USER: 'cryptovest_currentUser',
+            DEPOSITS: 'cryptovest_deposits',
+            WITHDRAWALS: 'cryptovest_withdrawals',
+            PROFIT_LOG: 'cryptovest_profitLog',
         };
 
-        const heroStatsObserver = new IntersectionObserver((entries) => {
-            entriesforEach(entry => {
-                if (entry.isIntersecting) {
-                    const statNumbers = entry.target.querySelectorAll('.stat h3');
-                    // Only animate once
-                    if (!entry.target.dataset.animated) {
-                        entry.target.dataset.animated = 'true';
-                        // Just reveal, numbers already static
+        function getDB(key) {
+            try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
+        }
+        function setDB(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+        function getCurrentUser() {
+            try { return JSON.parse(localStorage.getItem(DB_KEYS.CURRENT_USER)); } catch (e) { return null; }
+        }
+        function setCurrentUser(user) {
+            localStorage.setItem(DB_KEYS.CURRENT_USER, JSON.stringify(user));
+        }
+        function clearCurrentUser() {
+            localStorage.removeItem(DB_KEYS.CURRENT_USER);
+        }
+
+        // Sync user data from Users array
+        function refreshCurrentUser() {
+            const cu = getCurrentUser();
+            if (!cu) return null;
+            const users = getDB(DB_KEYS.USERS);
+            const idx = users.findIndex(u => u.id === cu.id);
+            if (idx === -1) { clearCurrentUser(); return null; }
+            setCurrentUser(users[idx]);
+            return users[idx];
+        }
+
+        function updateUserInDB(user) {
+            const users = getDB(DB_KEYS.USERS);
+            const idx = users.findIndex(u => u.id === user.id);
+            if (idx !== -1) users[idx] = user;
+            else users.push(user);
+            setDB(DB_KEYS.USERS, users);
+            setCurrentUser(user);
+        }
+
+        // ==================== TOAST ====================
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+        }
+
+        // ==================== HELPER FUNCTIONS ====================
+        function generateId() {
+            return 'crypto_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+        function formatCurrency(amount) {
+            return '$' + parseFloat(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/, ',');
+        }
+        function formatDatetime(dateStr) {
+            if (!dateStr) return '-';
+            const d = new Date(dateStr);
+            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+        }
+        function timeAgo(dateStr) {
+            if (!dateStr) return '-';
+            const now = new Date();
+            const then = new Date(dateStr);
+            const diffMs = now - then;
+            const mins = Math.floor(diffMs / 60000);
+            const hrs = Math.floor(diffMs / 3600000);
+            const days = Math.floor(diffMs / 86400000);
+            if (mins < 1) return 'Baru saja';
+            if (mins < 60) return mins + ' menit lalu';
+            if (hrs < 24) return hrs + ' jam lalu';
+            return days + ' hari lalu';
+        }
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => showToast('Berhasil disalin!', 'success'));
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('Berhasil disalin!', 'success');
+            }
+        }
+
+        // ==================== AUTH: REGISTER ====================
+        function registerUser(username, email, password, referralCode) {
+            const users = getDB(DB_KEYS.USERS);
+            if (users.find(u => u.email === email)) {
+                showToast('Email sudah terdaftar!', 'error');
+                return false;
+            }
+            if (users.find(u => u.username === username)) {
+                showToast('Username sudah digunakan!', 'error');
+                return false;
+            }
+
+            const newUser = {
+                id: generateId(),
+                username,
+                email,
+                password,
+                balance: 0,
+                profitBalance: 0,
+                totalDeposit: 0,
+                totalWithdraw: 0,
+                referralCode: 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+                referredBy: referralCode || null,
+                referralEarnings: 0,
+                registeredAt: new Date().toISOString(),
+                lastProfitUpdate: new Date().toISOString(),
+            };
+
+            // Handle referral
+            if (referralCode) {
+                const referrer = users.find(u => u.referralCode === referralCode);
+                if (referrer) {
+                    newUser.referredBy = referralCode;
+                    // Initial small bonus
+                    newUser.balance += 5;
+                    showToast('Bonus $5 dari referral!', 'success');
+                } else {
+                    showToast('Kode referral tidak ditemukan, tetap mendaftar tanpa referral.', 'info');
+                    newUser.referredBy = null;
+                }
+            }
+
+            users.push(newUser);
+            setDB(DB_KEYS.USERS, users);
+            setCurrentUser(newUser);
+            showToast('Registrasi berhasil! Selamat datang, ' + username + '!', 'success');
+            return true;
+        }
+
+        function loginUser(email, password) {
+            const users = getDB(DB_KEYS.USERS);
+            const user = users.find(u => u.email === email && u.password === password);
+            if (!user) {
+                showToast('Email atau password salah!', 'error');
+                return false;
+            }
+            setCurrentUser(user);
+            showToast('Login berhasil! Selamat datang kembali, ' + user.username + '!', 'success');
+            return true;
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                clearCurrentUser();
+                showToast('Berhasil logout.', 'info');
+                renderApp();
+            }
+        }
+
+        // ==================== DEPOSIT ====================
+        function submitDeposit(user, amount, method, txHash) {
+            const deposit = {
+                id: generateId(),
+                userId: user.id,
+                amount: parseFloat(amount),
+                method,
+                txHash: txHash || '',
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            };
+            const deposits = getDB(DB_KEYS.DEPOSITS);
+            deposits.unshift(deposit);
+            setDB(DB_KEYS.DEPOSIT S, deposits);
+            showToast('Deposit berhasil dikirim! Menunggu konfirmasi.', 'success');
+            return deposit;
+        }
+
+        function approveDeposit(depositId) {
+            const deposits = getDB(DB_KEYS.DEPOSITS);
+            const dep = deposits.find(d => d.id === depositId);
+            if (!dep || dep.status !== 'pending') return;
+            dep.status = 'approved';
+            dep.updatedAt = new Date().toISOString();
+            setDB(DB_KEYS.DEPOSITS, deposits);
+
+            const users = getDB(DB_KEYS.USERS);
+            const user = users.find(u => u.id === dep.userId);
+            if (user) {
+                user.balance += dep.amount;
+                user.totalDeposit += dep.amount;
+                updateUserInDB(user);
+
+                // Referral commission for the referrer
+                if (user.referredBy) {
+                    const referrer = users.find(u => u.referralCode === user.referredBy);
+                    if (referrer && referrer.id !== user.id) {
+                        const commission = dep.amount * 0.15;
+                        referrer.referralEarnings += commission;
+                        referrer.balance += commission;
+                        const refIdx = users.findIndex(u => u.id === referrer.id);
+                        if (refIdx !== -1) users[refIdx] = referrer;
+                        setDB(DB_KEYS.USERS, users);
                     }
                 }
+            }
+        }
+
+        // ==================== WITHDRAWAL ====================
+        function submitWithdrawal(user, amount, method, address) {
+            const withdrawal = {
+                id: generateId(),
+                userId: user.id,
+                amount: parseFloat(amount),
+                method,
+                address,
+                status: 'pending',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString(),
+            };
+            const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
+            withdrawals.unshift(withdrawal);
+            setDB(DB_KEYS.WITHDRAWALS, withdrawals);
+
+            // Deduct from balance
+            user.balance -= parseFloat(amount);
+            updateUserInDB(user);
+            showToast('Penarikan berhasil diajukan! Menunggu proses.', 'success');
+            return withdrawal;
+        }
+
+        function approveWithdrawal(withdrawalId) {
+            const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
+            const wd = withdrawals.find(w => w.id === withdrawalId);
+            if (!wd || wd.status !== 'pending') return;
+            wd.status = 'approved';
+            wd.updatedAt = new Date().toISOString();
+            setDB(DB_KEYS.WITHDRAWALS, withdrawals);
+
+            const users = getDB(DB_KEYS.USERS);
+            const user = users.find(u => u.id === wd.userId);
+            if (user) {
+                user.totalWithdraw += wd.amount;
+                const idx = users.findIndex(u => u.id === user.id);
+                if (idx !== -1) users[idx] = user;
+                setDB(DB_KEYS.USERS, users);
+                setCurrentUser(user);
+            }
+        }
+
+        // ==================== DAILY PROFIT ====================
+        function calculateDailyProfit(user) {
+            if (!user || user.totalDeposit <= 0) return 0;
+
+            const now = new Date();
+            const lastUpdate = new Date(user.lastProfitUpdate || user.registeredAt);
+            const diffTime = now - lastUpdate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays <= 0) return 0;
+
+            const dailyRate = 0.009; // 0.9%
+            let totalProfit = 0;
+
+            for (let i = 0; i < diffDays; i++) {
+                totalProfit += user.totalDeposit * dailyRate;
+            }
+
+            return totalProfit;
+        }
+
+        function updateProfitBalances() {
+            const users = getDB(DB_KEYS.USERS);
+            let changed = false;
+
+            users.forEach(user => {
+                const profit = calculateDailyProfit(user);
+                if (profit > 0) {
+                    user.profitBalance += profit;
+                    user.lastProfitUpdate = new Date().toISOString();
+                    changed = true;
+                }
             });
-        }, { threshold: 0.5 });
 
-        const heroStats = document.querySelector('.hero-stats');
-        if (heroStats) heroStatsObserver.observe(heroStats);
+            if (changed) setDB(DB_KEYS.USERS, users);
 
-        console.log('🚀 InvestPro - Website siap digunakan!');
-    </script>
-</body>
-</html>
+            // Refresh current user
+            const cu = getCurrentUser();
+            if (cu) {
+                const fresh = users.find(u => u.id === cu.id);
+                if (fresh) setCurrentUser(fresh);
+            }
+        }
+
+        // ==================== UI RENDERING ====================
+        let currentPage = 'dashboard';
+
+        function renderApp() {
+            updateProfitBalances();
+            const user = getCurrentUser();
+
+            if (!user) {
+                renderAuthPage();
+                return;
+            }
+
+            renderSidebar(user);
+            renderTopbar(user);
+            renderPage(currentPage, user);
+        }
+
+        function renderAuthPage() {
+            document.getElementById('sidebar').style.display = 'none';
+            document.getElementById('sidebarOverlay').style.display = 'none';
+            const topbar = document.querySelector('.topbar');
+            if (topbar) topbar.style.display = 'none';
+
+            const contentArea = document.getElementById('contentArea');
+            contentArea.style.padding = '0';
+            contentArea.innerHTML = renderAuthHTML();
+        }
+
+        function renderAuthHTML() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get('ref') || '';
+            const mode = urlParams.get('mode') || 'login'; // login or register
+
+            return `
+                <div class="auth-container">
+                    <div class="auth-card">
+                        <h1>₿ CryptoVest</h1>
+                        <p class="subtitle">Platform Investasi Crypto Terpercaya</p>
+                        <div style="display:flex;gap:8px;margin-bottom:24px;">
+                            <button class="btn ${mode === 'login' ? 'btn-gold' : 'btn-outline'} btn-block" onclick="switchAuthMode('login')">Login</button>
+                            <button class="btn ${mode === 'register' ? 'btn-gold' : 'btn-outline'} btn-block" onclick="switchAuthMode('register')">Register</button>
+                        </div>
+                        <div id="authFormContainer">
+                            ${mode === 'login' ? renderLoginForm() : renderRegisterForm(ref)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderLoginForm() {
+            return `
+                <form onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="loginEmail" placeholder="Masukkan email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="loginPassword" placeholder="Masukkan password" required>
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-block">🔓 Login</button>
+                </form>
+                <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text-muted);">
+                    Demo: email <b>demo@crypto.com</b> pass <b>demo123</b>
+                </p>
+            `;
+        }
+
+        function renderRegisterForm(ref) {
+            return `
+                <form onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="regUsername" placeholder="Pilih username" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="regEmail" placeholder="Masukkan email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" id="regPassword" placeholder="Min. 6 karakter" required minlength="6">
+                    </div>
+                    <div class="form-group">
+                        <label>Kode Referral (Opsional)</label>
+                        <input type="text" id="regReferral" placeholder="Masukkan kode referral" value="${ref}">
+                    </div>
+                    <button type="submit" class="btn btn-gold btn-block">🚀 Daftar Sekarang</button>
+                </form>
+            `;
+        }
+
+        function switchAuthMode(mode) {
+            const url = new URL(window.location);
+            url.searchParams.set('mode', mode);
+            window.history.pushState({}, '', url);
+            currentPage = 'auth';
+            renderApp();
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            if (loginUser(email, password)) {
+                currentPage = 'dashboard';
+                renderApp();
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const referral = document.getElementById('regReferral').value.trim();
+
+            if (registerUser(username, email, password, referral)) {
+                currentPage = 'dashboard';
+                renderApp();
+            }
+        }
+
+        function renderSidebar(user) {
+            document.getElementById('sidebar').style.display = 'flex';
+            document.querySelector('.topbar').style.display = 'flex';
+
+            const navItems = [
+                { id: 'dashboard', icon: '📊', label: 'Dashboard', section: 'UTAMA' },
+                { id: 'deposit', icon: '💰', label: 'Deposit', section: 'TRANSAKSI' },
+                { id: 'deposit-history', icon: '📋', label: 'Riwayat Deposit' },
+                { id: 'deposit-address', icon: '📍', label: 'Alamat Deposit' },
+                { id: 'withdrawal', icon: '💸', label: 'Penarikan' },
+                { id: 'withdrawal-history', icon: '📝', label: 'Riwayat Penarikan' },
+                { id: 'withdrawal-address', icon: '🏦', label: 'Alamat Penarikan' },
+                { id: 'profit', icon: '📈', label: 'Keuntungan Harian', section: 'KEUANGAN' },
+                { id: 'referral', icon: '👥', label: 'Komisi Undang Teman' },
+            ];
+
+            let html = '';
+            let lastSection = '';
+            navItems.forEach(item => {
+                if (item.section && item.section !== lastSection) {
+                    html += `<div class="nav-section"><div class="nav-section-title">${item.section}</div></div>`;
+                    lastSection = item.section;
+                }
+                html += `
+                    <button class="nav-item ${currentPage === item.id ? 'active' : ''}" onclick="navigateTo('${item.id}')">
+                        <span class="nav-icon">${item.icon}</span> ${item.label}
+                    </button>
+                `;
+            });
+
+            html += `
+                <button class="nav-item logout-btn" onclick="logout()">
+                    <span class="nav-icon">🚪</span> Logout
+                </button>
+            `;
+
+            document.getElementById('sidebarNav').innerHTML = html;
+        }
+
+        function renderTopbar(user) {
+            document.getElementById('pageTitle').textContent = getPageTitle(currentPage);
+            document.getElementById('topbarRight').innerHTML = `
+                <div class="user-badge">
+                    <div class="avatar">${user.username.charAt(0).toUpperCase()}</div>
+                    <span>${user.username}</span>
+                    <span style="color:var(--gold);font-weight:600;">${formatCurrency(user.balance + user.profitBalance)}</span>
+                </div>
+            `;
+        }
+
+        function getPageTitle(page) {
+            const titles = {
+                'dashboard': 'Dashboard',
+                'deposit': 'Deposit',
+                'deposit-history': 'Riwayat Deposit',
+                'deposit-address': 'Alamat Deposit',
+                'withdrawal': 'Penarikan',
+                'withdrawal-history': 'Riwayat Penarikan',
+                'withdrawal-address': 'Alamat Penarikan',
+                'profit': 'Keuntungan Harian 0,9%',
+                'referral': 'Komisi Undang Teman 15%',
+            };
+            return titles[page] || 'Dashboard';
+        }
+
+        function navigateTo(page) {
+            currentPage = page;
+            const user = getCurrentUser();
+            if (!user) { renderApp(); return; }
+            renderSidebar(user);
+            renderTopbar(user);
+            renderPage(page, user);
+            if (window.innerWidth < 768) closeSidebar();
+        }
+
+        function renderPage(page, user) {
+            const contentArea = document.getElementById('contentArea');
+            contentArea.style.padding = '28px';
+            switch (page) {
+                case 'dashboard': contentArea.innerHTML = renderDashboard(user); break;
+                case 'deposit': contentArea.innerHTML = renderDepositPage(user); break;
+                case 'deposit-history': contentArea.innerHTML = renderDepositHistory(user); break;
+                case 'deposit-address': contentArea.innerHTML = renderDepositAddress(user); break;
+                case 'withdrawal': contentArea.innerHTML = renderWithdrawalPage(user); break;
+                case 'withdrawal-history': contentArea.innerHTML = renderWithdrawalHistory(user); break;
+                case 'withdrawal-address': contentArea.innerHTML = renderWithdrawalAddress(user); break;
+                case 'profit': contentArea.innerHTML = renderProfitPage(user); break;
+                case 'referral': contentArea.innerHTML = renderReferralPage(user); break;
+                default: contentArea.innerHTML = renderDashboard(user);
+            }
+            attachPageEvents(page, user);
+        }
+
+        // ==================== DASHBOARD ====================
+        function renderDashboard(user) {
+            const deposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id && d.status === 'approved');
+            const withdrawals = getDB(DB_KEYS.WITHDRAWALS).filter(w => w.userId === user.id && w.status === 'approved');
+            const pendingDeposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id && d.status === 'pending');
+            const totalBalance = user.balance + user.profitBalance;
+
+            // Check daily profit
+            const todayProfit = calculateDailyProfit(user);
+
+            return `
+                <div class="page-header">
+                    <h2>Selamat Datang, ${user.username}! 👋</h2>
+                    <p>Ringkasan akun investasi crypto Anda</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card gold">
+                        <div class="stat-icon">💎</div>
+                        <div class="stat-label">Saldo Total</div>
+                        <div class="stat-value">${formatCurrency(totalBalance)}</div>
+                        <div class="stat-sub">Saldo aktif + keuntungan</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">💵</div>
+                        <div class="stat-label">Saldo Aktif</div>
+                        <div class="stat-value">${formatCurrency(user.balance)}</div>
+                        <div class="stat-sub">Siap ditarik</div>
+                    </div>
+                    <div class="stat-card green">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-label">Kuntungan Harian</div>
+                        <div class="stat-value">${formatCurrency(user.profitBalance)}</div>
+                        <div class="stat-sub">+0,9% per hari dari total deposit</div>
+                    </div>
+                    <div class="stat-card gold">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-label">Komisi Referral</div>
+                        <div class="stat-value">${formatCurrency(user.referralEarnings)}</div>
+                        <div class="stat-sub">15% dari deposit referral</div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Deposit</div>
+                        <div class="stat-value" style="color:var(--green)">${formatCurrency(user.totalDeposit)}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Total Penarikan</div>
+                        <div class="stat-value" style="color:var(--red)">${formatCurrency(user.totalWithdraw)}</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Deposit Pending</div>
+                        <div class="stat-value" style="color:var(--gold)">${pendingDeposits.length} tx</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Keuntungan Hari Ini</div>
+                        <div class="stat-value" style="color:var(--green)">${formatCurrency(todayProfit)}</div>
+                    </div>
+                </div>
+
+                <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
+                    <button class="btn btn-gold" onclick="navigateTo('deposit')">💰 Deposit Sekarang</button>
+                    <button class="btn btn-blue" onclick="navigateTo('withdrawal')">💸 Tarik Dana</button>
+                    <button class="btn btn-outline" onclick="navigateTo('referral')">👥 Undang Teman</button>
+                </div>
+            `;
+        }
+
+        // ==================== DEPOSIT PAGE ====================
+        function renderDepositPage(user) {
+            return `
+                <div class="page-header">
+                    <h2>💰 Deposit Crypto</h2>
+                    <p>Lakukan deposit untuk mulai berinvestasi</p>
+                </div>
+                <div class="form-card">
+                    <h3>Form Deposit</h3>
+                    <form id="depositForm" onsubmit="handleDeposit(event)">
+                        <div class="form-group">
+                            <label>Jumlah Deposit (USD)</label>
+                            <input type="number" id="depositAmount" placeholder="Min. $10" required min="10" step="0.01">
+                            <div class="input-hint">Minimal deposit $10 USD</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Metode Pembayaran</label>
+                            <select id="depositMethod" required>
+                                <option value="">Pilih metode...</option>
+                                <option value="BTC">Bitcoin (BTC)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                                <option value="USDT">USDT (TRC20)</option>
+                                <option value="BNB">BNB Smart Chain</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Tx Hash / ID Transaksi</label>
+                            <input type="text" id="depositTxHash" placeholder="Masukkan Tx Hash transaksi Anda" required>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-block">💸 Kirim Deposit</button>
+                    </form>
+                    <p class="text-muted" style="margin-top:12px;">* Deposit akan dikonfirmasi dalam 1-3 jam kerja</p>
+                </div>
+            `;
+        }
+
+        function handleDeposit(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) return;
+            const amount = document.getElementById('depositAmount').value;
+            const method = document.getElementById('depositMethod').value;
+            const txHash = document.getElementById('depositTxHash').value.trim();
+
+            if (parseFloat(amount) < 10) {
+                showToast('Minimal deposit $10!', 'error');
+                return;
+            }
+
+            submitDeposit(user, amount, method, txHash);
+            document.getElementById('depositForm').reset();
+            // Simulate auto-approval for demo
+            simulateApproval();
+            setTimeout(() => navigateTo('deposit-history'), 1000);
+        }
+
+        function simulateApproval() {
+            // For demo: auto-approve pending deposits after 3 seconds
+            setTimeout(() => {
+                const deposits = getDB(DB_KEYS.DEPOSITS);
+                const pending = deposits.find(d => d.status === 'pending');
+                if (pending) {
+                    approveDeposit(pending.id);
+                    showToast('✅ Deposit telah dikonfirmasi!', 'success');
+                    const user = getCurrentUser();
+                    if (user) {
+                        renderSidebar(user);
+                        renderTopbar(user);
+                        renderPage(currentPage, user);
+                    }
+                }
+            }, 3000);
+        }
+
+        // ==================== DEPOSIT HISTORY ====================
+        function renderDepositHistory(user) {
+            const deposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id);
+
+            let tableRows = '';
+            if (deposits.length === 0) {
+                tableRows = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada riwayat deposit</p></div></td></tr>`;
+            } else {
+                deposits.forEach(d => {
+                    const statusBadge = d.status === 'approved' ? '<span class="badge badge-success">✅ Disetujui</span>' :
+                                        d.status === 'pending' ? '<span class="badge badge-warning">⏳ Pending</span>' :
+                                        '<span class="badge badge-danger">❌ Ditolak</span>';
+                    tableRows += `
+                        <tr>
+                            <td style="font-family:monospace;font-size:11px;">${d.id.substr(-12)}</td>
+                            <td class="text-gold" style="font-weight:600;">${formatCurrency(d.amount)}</td>
+                            <td>${d.method}</td>
+                            <td style="font-family:monospace;font-size:11px;">${d.txHash ? d.txHash.substr(0, 20) + '...' : '-'}</td>
+                            <td>${statusBadge}</td>
+                            <td>${timeAgo(d.createdAt)}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            return `
+                <div class="page-header">
+                    <h2>📋 Riwayat Deposit</h2>
+                    <p>Semua riwayat transaksi deposit Anda</p>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Transaksi</th>
+                                <th>Jumlah</th>
+                                <th>Metode</th>
+                                <th>Tx Hash</th>
+                                <th>Status</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // ==================== DEPOSIT ADDRESS ====================
+        function renderDepositAddress(user) {
+            const addresses = {
+                BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p7kk4hxxluy9x',
+                ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+                USDT: 'TXhG7WmfF1Vf5HUxjG8L7RqXvJmMqHqPKs',
+                BNB: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
+            };
+
+            return `
+                <div class="page-header">
+                    <h2>📍 Alamat Deposit</h2>
+                    <p>Gunakan alamat di bawah untuk melakukan deposit crypto</p>
+                </div>
+                <div class="form-card" style="max-width:100%;">
+                    <h3>Alamat Wallet Deposit</h3>
+                    <p class="text-muted" style="margin-bottom:20px;">⚠️ Pastikan mengirim ke jaringan yang tepat. Kirim hanya USDT ke alamat USDT, BTC ke alamat BTC, dst.</p>
+
+                    ${Object.entries(addresses).map(([coin, addr]) => `
+                        <div class="form-group">
+                            <label><strong>${coin}</strong> Network</label>
+                            <div style="display:flex;gap:8px;">
+                                <input type="text" value="${addr}" readonly style="font-family:monospace;font-size:13px;flex:1;">
+                                <button class="btn btn-outline btn-sm" onclick="copyToClipboard('${addr}')">📋 Salin</button>
+                            </div>
+                        </div>
+                    `).join('')}
+
+                    <div style="background:rgba(240,185,11,0.08);border:1px solid rgba(240,185,11,0.2);border-radius:8px;padding:12px 16px;margin-top:16px;">
+                        <strong style="color:var(--gold)">⚠️ Penting!</strong>
+                        <p style="font-size:12px;color:var(--text-secondary);margin-top:4px;">
+                            Setelah transfer, masukkan Tx Hash di halaman <a href="#" onclick="navigateTo('deposit')" style="color:var(--gold);">Deposit</a> untuk konfirmasi.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== WITHDRAWAL PAGE ====================
+        function renderWithdrawalPage(user) {
+            const totalBalance = user.balance + user.profitBalance;
+            return `
+                <div class="page-header">
+                    <h2>💸 Penarikan Dana</h2>
+                    <p>Tarik keuntungan dan saldo Anda</p>
+                </div>
+                <div class="form-card">
+                    <h3>Form Penarikan</h3>
+                    <div style="background:var(--bg-primary);padding:16px;border-radius:8px;margin-bottom:20px;">
+                        <span style="color:var(--text-muted)">Saldo Tersedia: </span>
+                        <strong style="color:var(--gold);font-size:20px;">${formatCurrency(user.balance)}</strong>
+                        <br><span class="text-muted" style="font-size:11px;">*Saldo aktif yang bisa ditarik</span>
+                    </div>
+                    <form id="withdrawalForm" onsubmit="handleWithdrawal(event)">
+                        <div class="form-group">
+                            <label>Jumlah Penarikan (USD)</label>
+                            <input type="number" id="withdrawalAmount" placeholder="Min. $10" required min="10" step="0.01">
+                            <div class="input-hint">Minimal $10 | Maksimal: ${formatCurrency(user.balance)}</div>
+                        </div>
+                        <div class="form-group">
+                            <label>Metode Penarikan</label>
+                            <select id="withdrawalMethod" required>
+                                <option value="">Pilih metode...</option>
+                                <option value="BTC">Bitcoin (BTC)</option>
+                                <option value="ETH">Ethereum (ETH)</option>
+                                <option value="USDT">USDT (TRC20)</option>
+                                <option value="BNB">BNB Smart Chain</option>
+                                <option value="BANK">Tranfer Bank</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat / No. Rekening</label>
+                            <input type="text" id="withdrawalAddress" placeholder="Masukkan alamat wallet atau no. rekening" required>
+                        </div>
+                        <button type="submit" class="btn btn-gold btn-block">💸 Ajukan Penarikan</button>
+                    </form>
+                </div>
+            `;
+        }
+
+        function handleWithdrawal(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) return;
+            const amount = parseFloat(document.getElementById('withdrawalAmount').value);
+            const method = document.getElementById('withdrawalMethod').value;
+            const address = document.getElementById('withdrawalAddress').value.trim();
+
+            if (amount < 10) {
+                showToast('Minimal penarikan $10!', 'error');
+                return;
+            }
+            if (amount > user.balance) {
+                showToast('Saldo tidak mencukupi!', 'error');
+                return;
+            }
+
+            submitWithdrawal(user, amount, method, address);
+            document.getElementById('withdrawalForm').reset();
+            // Simulate auto-approval
+            setTimeout(() => {
+                const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
+                const pending = withdrawals.find(w => w.userId === user.id && w.status === 'pending');
+                if (pending) {
+                    approveWithdrawal(pending.id);
+                    showToast('✅ Penarikan telah diproses!', 'success');
+                    navigateTo('withdrawal-history');
+                }
+            }, 4000);
+            setTimeout(() => navigateTo('withdrawal-history'), 1000);
+        }
+
+        // ==================== WITHDRAWAL HISTORY ====================
+        function renderWithdrawalHistory(user) {
+            const withdrawals = getDB(DB_KEYS.WITHDRAWALS).filter(w => w.userId === user.id);
+
+            let tableRows = '';
+            if (withdrawals.length === 0) {
+                tableRows = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada riwayat penarikan</p></div></td></tr>`;
+            } else {
+                withdrawals.forEach(w => {
+                    const statusBadge = w.status === 'approved' ? '<span class="badge badge-success">✅ Selesai</span>' :
+                                        w.status === 'pending' ? '<span class="badge badge-warning">⏳ Menunggu</span>' :
+                                        '<span class="badge badge-danger">❌ Ditolak</span>';
+                    tableRows += `
+                        <tr>
+                            <td style="font-family:monospace;font-size:11px;">${w.id.substr(-12)}</td>
+                            <td class="text-red" style="font-weight:600;">${formatCurrency(w.amount)}</td>
+                            <td>${w.method}</td>
+                            <td style="font-family:monospace;font-size:11px;">${w.address ? w.address.substr(0, 20) + '...' : '-'}</td>
+                            <td>${statusBadge}</td>
+                            <td>${timeAgo(w.createdAt)}</td>
+                        </tr>
+                    `;
+                });
+            }
+
+            return `
+                <div class="page-header">
+                    <h2>📝 Riwayat Penarikan</h2>
+                    <p>Semua riwayat penarikan dana Anda</p>
+                </div>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Transaksi</th>
+                                <th>Jumlah</th>
+                                <th>Metode</th>
+                                <th>Alamat</th>
+                                <th>Status</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody>${tableRows}</tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        // ==================== WITHDRAWAL ADDRESS ====================
+        function renderWithdrawalAddress(user) {
+            return `
+                <div class="page-header">
+                    <h2>🏦 Alamat Penarikan Tersimpan</h2>
+                    <p>Kelola alamat penarikan Anda</p>
+                </div>
+                <div class="form-card" style="max-width:100%;">
+                    <h3>Daftar Alamat Penarikan</h3>
+
+                    <div id="savedAddressesList">
+                        ${renderSavedAddresses(user)}
+                    </div>
+
+                    <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:20px;">
+                        <h4 style="margin-bottom:12px;">➕ Tambah Alamat Baru</h4>
+                        <form id="addAddressForm" onsubmit="handleAddWithdrawalAddress(event)">
+                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+                                <div class="form-group">
+                                    <label>Label / Nama</label>
+                                    <input type="text" id="addrLabel" placeholder="Cth: Wallet Utama" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Network / Metode</label>
+                                    <select id="addrNetwork" required>
+                                        <option value="">Pilih...</option>
+                                        <option value="BTC">Bitcoin</option>
+                                        <option value="ETH">Ethereum</option>
+                                        <option value="USDT">USDT (TRC20)</option>
+                                        <option value="BNB">BNB</option>
+                                        <option value="BANK">Bank</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat Wallet / No. Rekening</label>
+                                <input type="text" id="addrValue" placeholder="Masukkan alamat lengkap" required>
+                            </div>
+                            <button type="submit" class="btn btn-blue btn-block">💾 Simpan Alamat</button>
+                        </form>
+                    </div>
+                </div>
+            `;
+        }
+
+        function getSavedAddresses(user) {
+            const key = 'saved_addresses_' + user.id;
+            try { return JSON.parse(localStorage.getItem(key)) || '[]'); } catch(e) { return []; }
+        }
+
+        function saveAddress(user, addressData) {
+            const key = 'saved_addresses_' + user.id;
+            const addresses = getSavedAddresses(user);
+            addresses.push({ ...addressData, id: generateId(), createdAt: new Date().toISOString() });
+            localStorage.setItem(key, JSON.stringify(addresses));
+        }
+
+        function deleteAddress(user, addressId) {
+            const key = 'saved_addresses_' + user.id;
+            let addresses = getSavedAddresses(user);
+            addresses = addresses.filter(a => a.id !== addressId);
+            localStorage.setItem(key, JSON.stringify(addresses));
+        }
+
+        function renderSavedAddresses(user) {
+            const addresses = getSavedAddresses(user);
+            if (addresses.length === 0) {
+                return `<div class="empty-state"><div class="empty-icon">📍</div><p>Belum ada alamat tersimpan</p></div>`;
+            }
+            return addresses.map(a => `
+                <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-primary);padding:12px;border-radius:8px;margin-bottom:8px;">
+                    <div>
+                        <strong>${a.label}</strong>
+                        <span class="badge badge-info" style="margin-left:8px;">${a.network}</span>
+                        <br><span style="font-family:monospace;font-size:12px;color:var(--text-secondary);">${a.value}</span>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline" onclick="copyToClipboard('${a.value}')">📋</button>
+                        <button class="btn btn-sm btn-outline" onclick="deleteAddressAndRefresh('${a.id}')" style="color:var(--red);">🗑</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleAddWithdrawalAddress(e) {
+            e.preventDefault();
+            const user = getCurrentUser();
+            if (!user) return;
+            const label = document.getElementById('addrLabel').value.trim();
+            const network = document.getElementById('addrNetwork').value;
+            const value = document.getElementById('addrValue').value.trim();
+            saveAddress(user, { label, network, value });
+            document.getElementById('addAddressForm').reset();
+            showToast('Alamat berhasil disimpan!', 'success');
+            document.getElementById('savedAddressesList').innerHTML = renderSavedAddresses(user);
+        }
+
+        function deleteAddressAndRefresh(addressId) {
+            const user = getCurrentUser();
+            if (!user) return;
+            deleteAddress(user, addressId);
+            document.getElementById('savedAddressesList').innerHTML = renderSavedAddresses(user);
+            showToast('Alamat berhasil dihapus.', 'info');
+        }
+
+        // ==================== DAILY PROFIT PAGE ====================
+        function renderProfitPage(user) {
+            const dailyRate = 0.9;
+            const totalBalance = user.balance + user.profitBalance;
+            const todayProfit = calculateDailyProfit(user);
+
+            return `
+                <div class="page-header">
+                    <h2>📈 Keuntungan Harian 0,9%</h2>
+                    <p>Dapatkan keuntungan otomatis setiap hari dari total deposit</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card green">
+                        <div class="stat-icon">📈</div>
+                        <div class="stat-label">Total Keuntungan</div>
+                        <div class="stat-value">${formatCurrency(user.profitBalance)}</div>
+                        <div class="stat-sub">Akumulasi keuntungan harian</div>
+                    </div>
+                    <div class="stat-card gold">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-label">Keuntungan Hari Ini</div>
+                        <div class="stat-value">${formatCurrency(todayProfit)}</div>
+                        <div class="stat-sub">0,9% × Total Deposit</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-label">Total Deposit</div>
+                        <div class="stat-value">${formatCurrency(user.totalDeposit)}</div>
+                        <div class="stat-sub">Dasar perhitungan profit</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Estimasi Profit / Hari</div>
+                        <div class="stat-value" style="color:var(--green)">${formatCurrency(user.totalDeposit * 0.009)}</div>
+                        <div class="stat-sub">Dari total deposit Anda</div>
+                    </div>
+                </div>
+
+                <div class="form-card" style="max-width:100%;">
+                    <h3>📐 Cara Kerja Keuntungan Harian</h3>
+                    <div style="display:grid;gap:16px;">
+                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
+                            <strong style="color:var(--gold)">💰 Rate Keuntungan: 0,9% per hari</strong>
+                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
+                                Keuntungan dihitung dari <strong>total deposit</strong> Anda. Semakin besar deposit, semakin besar keuntungan harian.
+                            </p>
+                        </div>
+                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
+                            <strong style="color:var(--gold)">🔄 Update Otomatis</strong>
+                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
+                                Keuntungan ditambahkan otomatis ke <strong>Saldo Keuntungan</strong> setiap hari.
+                            </p>
+                        </div>
+                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
+                            <strong style="color:var(--gold)">💡 Contoh Perhitungan</strong>
+                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
+                                Deposit $1.000 → Keuntungan harian = $1.000 × 0,9% = <strong>$9/hari</strong><br>
+                                Dalam 30 hari → <strong>$270 keuntungan</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:24px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:16px;">
+                        <strong style="color:var(--blue-accent)">💡 Tips Maksimalkan Keuntungan</strong>
+                        <ul style="color:var(--text-secondary);font-size:13px;margin-top:8px;padding-left:20px;">
+                            <li>Lakukan deposit lebih besar untuk keuntungan harian lebih tinggi</li>
+                            <li>Keuntungan bisa ditarik kapan saja</li>
+                            <li>Gunakan fitur referral untuk tambahan komisi 15%</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== REFERRAL PAGE ====================
+        function renderReferralPage(user) {
+            const referralLink = window.location.origin + window.location.pathname + '?ref=' + user.referralCode + '&mode=register';
+            const users = getDB(DB_KEYS.USERS);
+            const referrals = users.filter(u => u.referredBy === user.referralCode);
+
+            return `
+                <div class="page-header">
+                    <h2>👥 Komisi Undang Teman 15%</h2>
+                    <p>Ajak teman berinvestasi dan dapatkan komisi 15% dari setiap deposit mereka</p>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card gold">
+                        <div class="stat-icon">💎</div>
+                        <div class="stat-label">Total Komisi</div>
+                        <div class="stat-value">${formatCurrency(user.referralEarnings)}</div>
+                        <div class="stat-sub">15% dari deposit referral</div>
+                    </div>
+                    <div class="stat-card blue">
+                        <div class
