@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html lang="id">
+```ht<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoVest - Investasi Crypto</title>
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a2e;
-            --bg-sidebar: #0d0d18;
-            --gold: #f0b90b;
-            --gold-light: #fcd535;
-            --green: #0ecb81;
-            --red: #f6465d;
-            --text-primary: #eaecef;
-            --text-secondary: #848e9c;
-            --text-muted: #5e6673;
-            --border: #2b2b3a;
-            --blue-accent: #3b82f6;
-            --purple-accent: #8b5cf6;
-            --gradient-1: linear-gradient(135deg, #f0b90b, #f7931a);
-            --gradient-2: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            --gradient-3: linear-gradient(135deg, #0ecb81, #3b82f6);
-            --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --transition: 0.2s ease;
+            --bg: #0a0e17;
+            --card: #111827;
+            --card2: #1a1f2e;
+            --accent: #3b82f6;
+            --accent2: #8b5cf6;
+            --green: #10b981;
+            --red: #ef4444;
+            --text: #e2e8f0;
+            --text2: #94a3b8;
+            --border: #1e293b;
+            --radius: 16px;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -36,1775 +27,904 @@
         }
 
         body {
-            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            display: flex;
-            overflow-x: hidden;
+            line-height: 1.5;
         }
 
-        /* ===== SCROLLBAR ===== */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: transparent;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #2b2b3a;
-            border-radius: 10px;
-        }
-
-        /* ===== SIDEBAR ===== */
-        .sidebar {
-            width: 260px;
-            min-width: 260px;
-            height: 100vh;
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            transition: transform var(--transition);
-        }
-
-        .sidebar-logo {
-            padding: 24px 20px;
+        /* ===== HEADER ===== */
+        header {
+            background: var(--card);
             border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .sidebar-logo .logo-icon {
-            width: 42px;
-            height: 42px;
-            background: var(--gradient-1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 700;
-            color: #000;
-        }
-
-        .sidebar-logo .logo-text {
-            font-size: 18px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-
-        .sidebar-logo .logo-text span {
-            color: var(--gold);
-        }
-
-        .sidebar-nav {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-        }
-
-        .nav-section {
-            margin-bottom: 8px;
-        }
-
-        .nav-section-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--text-muted);
-            padding: 12px 10px 6px;
-            font-weight: 600;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 11px 14px;
-            border-radius: var(--radius-sm);
-            cursor: pointer;
-            transition: all var(--transition);
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-decoration: none;
-            margin-bottom: 2px;
-            font-weight: 500;
-            border: none;
-            background: none;
-            width: 100%;
-            text-align: left;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--text-primary);
-        }
-        .nav-item.active {
-            background: rgba(240, 185, 11, 0.12);
-            color: var(--gold);
-            font-weight: 600;
-        }
-        .nav-item .nav-icon {
-            font-size: 18px;
-            width: 24px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-
-        .nav-item.logout-btn {
-            color: var(--red);
-            margin-top: 8px;
-            border-top: 1px solid var(--border);
-            border-radius: 0;
-            padding-top: 16px;
-            margin-top: 12px;
-        }
-        .nav-item.logout-btn:hover {
-            background: rgba(246, 70, 93, 0.08);
-        }
-
-        .sidebar-footer {
-            padding: 12px 20px;
-            border-top: 1px solid var(--border);
-            font-size: 11px;
-            color: var(--text-muted);
-            text-align: center;
-        }
-
-        /* ===== MAIN CONTENT ===== */
-        .main-content {
-            flex: 1;
-            padding: 0;
-            overflow-y: auto;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .topbar {
-            padding: 16px 28px;
-            border-bottom: 1px solid var(--border);
+            padding: 16px 32px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--bg-secondary);
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+        .balance-badge {
+            background: var(--card2);
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .balance-badge span {
+            color: var(--green);
         }
 
-        .topbar-left {
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 24px 32px;
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 24px;
+        }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow);
+        }
+        .card h3 {
+            font-size: 1rem;
+            color: var(--text2);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        /* ===== MARKET TABLE ===== */
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .market-table th {
+            text-align: left;
+            color: var(--text2);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 8px;
+            border-bottom: 1px solid var(--border);
+        }
+        .market-table td {
+            padding: 14px 8px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .market-table tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .market-table tbody tr:hover {
+            background: var(--card2);
+        }
+        .coin-info {
             display: flex;
             align-items: center;
             gap: 12px;
         }
-
-        .menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 24px;
-            cursor: pointer;
-            padding: 4px;
-        }
-
-        .topbar-title {
-            font-size: 20px;
-            font-weight: 700;
-        }
-
-        .topbar-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--bg-card);
-            padding: 8px 14px;
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .user-badge .avatar {
-            width: 28px;
-            height: 28px;
+        .coin-icon {
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: var(--gradient-2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
             color: #fff;
         }
-
-        .content-area {
-            flex: 1;
-            padding: 28px;
-            overflow-y: auto;
-        }
-
-        /* ===== PAGE HEADER ===== */
-        .page-header {
-            margin-bottom: 28px;
-        }
-        .page-header h2 {
-            font-size: 26px;
+        .coin-name {
             font-weight: 700;
-            margin-bottom: 6px;
         }
-        .page-header p {
-            color: var(--text-secondary);
-            font-size: 14px;
+        .coin-symbol {
+            color: var(--text2);
+            font-size: 0.85rem;
         }
-
-        /* ===== CARDS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-        }
-        .stat-card.gold::before {
-            background: var(--gradient-1);
-        }
-        .stat-card.blue::before {
-            background: var(--gradient-2);
-        }
-        .stat-card.green::before {
-            background: var(--gradient-3);
-        }
-        .stat-card .stat-label {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-        }
-        .stat-card .stat-value {
-            font-size: 28px;
+        .price {
             font-weight: 700;
-            margin-bottom: 4px;
+            font-variant-numeric: tabular-nums;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
         }
-        .stat-card .stat-sub {
-            font-size: 12px;
-            color: var(--text-secondary);
-        }
-        .stat-card .stat-icon {
-            position: absolute;
-            right: 16px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 40px;
-            opacity: 0.08;
-        }
-
-        /* ===== FORMS ===== */
-        .form-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 28px;
-            max-width: 560px;
-        }
-        .form-card h3 {
-            font-size: 18px;
-            margin-bottom: 20px;
+        .change-positive {
+            color: var(--green);
             font-weight: 600;
         }
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: var(--text-secondary);
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 14px;
-            background: var(--bg-primary);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            color: var(--text-primary);
-            font-size: 14px;
-            font-family: inherit;
-            transition: border var(--transition);
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: var(--gold);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .form-group .input-hint {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border-radius: var(--radius-sm);
+        .change-negative {
+            color: var(--red);
             font-weight: 600;
-            font-size: 14px;
-            cursor: pointer;
-            border: none;
-            transition: all var(--transition);
-            font-family: inherit;
-        }
-        .btn-gold {
-            background: var(--gradient-1);
-            color: #000;
-        }
-        .btn-gold:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 16px rgba(240, 185, 11, 0.3);
-        }
-        .btn-blue {
-            background: var(--gradient-2);
-            color: #fff;
-        }
-        .btn-blue:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-primary);
-        }
-        .btn-outline:hover {
-            border-color: var(--gold);
-            color: var(--gold);
         }
         .btn-sm {
             padding: 6px 14px;
-            font-size: 12px;
-        }
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-        .btn-block {
-            width: 100%;
-        }
-
-        /* ===== TABLES ===== */
-        .table-wrapper {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px;
-        }
-        table th {
-            background: rgba(255, 255, 255, 0.02);
-            padding: 14px 16px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border);
-        }
-        table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid rgba(43, 43, 58, 0.5);
-            color: var(--text-secondary);
-        }
-        table tr:last-child td {
-            border-bottom: none;
-        }
-        table tr:hover td {
-            background: rgba(255, 255, 255, 0.01);
-        }
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-        .badge-success {
-            background: rgba(14, 203, 129, 0.15);
-            color: var(--green);
-        }
-        .badge-warning {
-            background: rgba(240, 185, 11, 0.15);
-            color: var(--gold);
-        }
-        .badge-danger {
-            background: rgba(246, 70, 93, 0.15);
-            color: var(--red);
-        }
-        .badge-info {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--blue-accent);
-        }
-        .copy-btn {
-            background: none;
             border: none;
             cursor: pointer;
-            font-size: 14px;
-            padding: 2px 6px;
-            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            transition: all 0.2s;
         }
-        .copy-btn:hover {
-            background: rgba(255, 255, 255, 0.08);
+        .btn-buy {
+            background: var(--green);
+            color: #000;
         }
-        .text-green {
-            color: var(--green);
+        .btn-buy:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
         }
-        .text-red {
-            color: var(--red);
+        .btn-sell {
+            background: var(--red);
+            color: #fff;
         }
-        .text-gold {
-            color: var(--gold);
-        }
-        .text-muted {
-            color: var(--text-muted);
-            font-size: 12px;
-        }
-
-        /* ===== ALERTS & TOASTS ===== */
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 14px  20px;
-            border-radius: var(--radius-sm);
-            font-weight: 500;
-            font-size: 14px;
-            z-index: 9999;
-            animation: slideInRight 0.3s ease;
-            box-shadow: var(--shadow);
-            max-width: 380px;
-        }
-        .toast.success {
-            background: #0c3d2a;
-            color: #0ecb81;
-            border: 1px solid #0ecb8133;
-        }
-        .toast.error {
-            background: #3d0c1a;
-            color: #f6465d;
-            border: 1px solid #f6465d33;
-        }
-        .toast.info {
-            background: #0c2840;
-            color: #3b82f6;
-            border: 1px solid #3b82f633;
-        }
-        @keyframes slideInRight {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+        .btn-sell:hover {
+            filter: brightness(1.2);
+            transform: scale(1.05);
         }
 
-        /* ===== EMPTY STATE ===== */
-        .empty-state {
-            text-align: center;
-            padding: 48px 20px;
-            color: var(--text-muted);
+        /* ===== RIGHT SIDEBAR ===== */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
         }
-        .empty-state .empty-icon {
-            font-size: 48px;
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .portfolio-item:last-child {
+            border-bottom: none;
+        }
+        .portfolio-coin {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+        .portfolio-amount {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text2);
+        }
+        .portfolio-value {
+            font-weight: 700;
+            text-align: right;
+        }
+        .portfolio-pnl {
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* ===== CHART ===== */
+        .chart-container {
+            position: relative;
+        }
+        canvas {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .chart-tabs {
+            display: flex;
+            gap: 4px;
             margin-bottom: 12px;
         }
-        .empty-state p {
-            font-size: 14px;
+        .chart-tab {
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text2);
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+        .chart-tab.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
         }
 
         /* ===== MODAL ===== */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 200;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 999;
+            backdrop-filter: blur(4px);
         }
         .modal {
-            background: var(--bg-card);
+            background: var(--card);
             border: 1px solid var(--border);
             border-radius: var(--radius);
-            padding: 28px;
-            max-width: 440px;
-            width: 90%;
+            padding: 32px;
+            width: 420px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
-        .modal h3 {
-            margin-bottom: 12px;
+        .modal h2 {
+            margin-bottom: 8px;
         }
-        .modal p {
-            color: var(--text-secondary);
-            font-size: 14px;
+        .modal .coin-label {
+            color: var(--text2);
             margin-bottom: 20px;
         }
-        .modal-actions {
+        .modal input {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--card2);
+            color: var(--text);
+            font-size: 1rem;
+            margin-bottom: 8px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .modal input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .modal .result-row {
             display: flex;
-            gap: 10px;
-            justify-content: flex-end;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: var(--text2);
+        }
+        .modal .result-row strong {
+            color: var(--text);
+        }
+        .modal .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+        }
+        .btn-danger {
+            background: var(--red);
+            color: #fff;
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        .hidden {
+            display: none !important;
         }
 
-        /* ===== REFERRAL LINK BOX ===== */
-        .referral-box {
-            background: var(--bg-primary);
-            border: 1px dashed var(--gold);
-            border-radius: var(--radius-sm);
-            padding: 16px;
+        /* ===== HISTORY ===== */
+        .tx-item {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-top: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
         }
-        .referral-box input {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text-primary);
-            font-size: 13px;
-            outline: none;
-            font-family: monospace;
+        .tx-badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.7rem;
+            text-transform: uppercase;
         }
-
-        /* ===== AUTH PAGES ===== */
-        .auth-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 20px;
-            width: 100%;
+        .tx-badge.buy {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--green);
         }
-        .auth-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 36px;
-            max-width: 440px;
-            width: 100%;
-            box-shadow: var(--shadow);
+        .tx-badge.sell {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--red);
         }
-        .auth-card h1 {
-            font-size: 24px;
-            text-align: center;
-            margin-bottom: 6px;
-        }
-        .auth-card .subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 28px;
-        }
-        .auth-card .form-group:last-of-type {
-            margin-bottom: 20px;
+        .tx-date {
+            color: var(--text2);
+            font-size: 0.75rem;
         }
 
-        /* ===== RESPONISVE ===== */
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -280px;
-                top: 0;
-                bottom: 0;
-                transition: left 0.3s ease;
+        /* ===== TOAST ===== */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--green);
+            color: #000;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 999;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+        }
+        @keyframes slideIn {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
             }
-            .sidebar.open {
-                left: 0;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            .content-area {
-                padding: 16px;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .topbar {
-                padding: 12px 16px;
-            }
-            .form-card {
-                max-width: 100%;
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
         }
 
-        @media (max-width: 480px) {
-            .stats-grid {
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .container {
                 grid-template-columns: 1fr;
             }
-            .auth-card {
-                padding: 24px 20px;
+            header {
+                padding: 12px 16px;
             }
-            table {
-                font-size: 11px;
+            .container {
+                padding: 16px;
             }
-            table th, table td {
-                padding: 8px;
-            }
-            .user-badge span:first-of-type {
-                display: none;
+            .balance-badge {
+                font-size: 0.9rem;
+                padding: 8px 14px;
             }
         }
 
-        /* ===== OVERLAY FOR MOBILE ===== */
-        .sidebar-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 99;
+        /* ===== LOADING SKELETON ===== */
+        .skeleton {
+            background: linear-gradient(90deg, var(--card2) 25%, #2a3040 50%, var(--card2) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
         }
-        .sidebar-overlay.show {
-            display: block;
+        @keyframes shimmer {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+
+        .total-pnl {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+        .total-value {
+            font-size: 2rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
         }
     </style>
 </head>
 <body>
 
-    <!-- SIDEBAR OVERLAY (mobile) -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebarlogo">
-            <div class="logo-icon">₿</div>
-            <div class="logo-text">Crypto<span>Vest</span></div>
+    <!-- ===== HEADER ===== -->
+    <header>
+        <div class="logo">
+            <span class="logo-icon">🪙</span> CryptoVest
         </div>
-        <nav class="sidebar-nav" id="sidebarNav">
-            <!-- Filled by JS -->
-        </nav>
-        <div class="sidebar-footer">© 2025 CryptoVest</div>
-    </aside>
+        <div class="balance-badge">
+            💰 Saldo: <span id="headerBalance">$10,000.00</span>
+        </div>
+    </header>
 
-    <!-- MAIN CONTENT -->
-    <div class="main-content">
-        <header class="topbar">
-            <div class="topbar-left">
-                <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-                <span class="topbar-title" id="pageTitle">Dashboard</span>
+    <!-- ===== MAIN LAYOUT ===== -->
+    <div class="container">
+
+        <!-- LEFT: Market -->
+        <div>
+            <div class="card">
+                <h3>📊 Market Harga (Live)</h3>
+                <table class="market-table">
+                    <thead>
+                        <tr>
+                            <th>Coin</th>
+                            <th>Harga</th>
+                            <th>24j</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="marketBody">
+                        <tr><td colspan="4" style="text-align:center;padding:40px;">Memuat data...</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="topbar-right" id="topbarRight">
-                <!-- Filled by JS -->
+        </div>
+
+        <!-- RIGHT: Sidebar -->
+        <div class="sidebar">
+
+            <!-- Portfolio -->
+            <div class="card">
+                <h3>💼 Portfolio Saya</h3>
+                <div style="margin-bottom:12px;">
+                    <div style="color:var(--text2);font-size:0.8rem;">Total Nilai</div>
+                    <div class="total-value" id="totalPortfolioValue">$10,000.00</div>
+                    <div class="total-pnl" id="totalPnl" style="color:var(--green);">+$0.00 (0.00%)</div>
+                </div>
+                <div id="portfolioList">
+                    <div style="color:var(--text2);font-size:0.85rem;padding:20px 0;">Belum ada aset. Mulai beli crypto!</div>
+                </div>
             </div>
-        </header>
-        <div class="content-area" id="contentArea">
-            <!-- Dynamic content -->
+
+            <!-- Chart -->
+            <div class="card">
+                <h3>📈 Grafik Harga</h3>
+                <div class="chart-tabs" id="chartTabs">
+                    <button class="chart-tab active" data-coin="bitcoin">BTC</button>
+                    <button class="chart-tab" data-coin="ethereum">ETH</button>
+                    <button class="chart-tab" data-coin="solana">SOL</button>
+                    <button class="chart-tab" data-coin="dogecoin">DOGE</button>
+                </div>
+                <canvas id="priceChart" width="340" height="180"></canvas>
+            </div>
+
+            <!-- History -->
+            <div class="card">
+                <h3>📋 Riwayat Transaksi</h3>
+                <div id="txHistory">
+                    <div style="color:var(--text2);font-size:0.85rem;">Belum ada transaksi.</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
-    <!-- TOAST CONTAINER -->
-    <div id="toastContainer"></div>
+    <!-- ===== BUY/SELL MODAL ===== -->
+    <div class="modal-overlay hidden" id="modalOverlay">
+        <div class="modal">
+            <h2 id="modalTitle">Beli Bitcoin</h2>
+            <div class="coin-label" id="modalPrice">Harga: $0.00</div>
+            <label style="font-size:0.85rem;color:var(--text2);">Jumlah (USD):</label>
+            <input type="number" id="modalAmount" placeholder="0.00" min="1" step="any">
+            <div class="result-row">
+                <span>Kamu dapat:</span>
+                <strong id="modalReceive">0.00000000 BTC</strong>
+            </div>
+            <div class="result-row">
+                <span>Biaya (0.5%):</span>
+                <strong id="modalFee">$0.00</strong>
+            </div>
+            <div class="result-row">
+                <span>Total:</span>
+                <strong id="modalTotal">$0.00</strong>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-ghost" onclick="closeModal()">Batal</button>
+                <button class="btn btn-primary" id="modalConfirmBtn" onclick="confirmTransaction()">Konfirmasi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== TOAST ===== -->
+    <div class="toast hidden" id="toast"></div>
 
     <script>
-        // ==================== DATABASE ====================
-        const DB_KEYS = {
-            USERS: 'cryptovest_users',
-            CURRENT_USER: 'cryptovest_currentUser',
-            DEPOSITS: 'cryptovest_deposits',
-            WITHDRAWALS: 'cryptovest_withdrawals',
-            PROFIT_LOG: 'cryptovest_profitLog',
-        };
+        // ==================== STATE ====================
+        const COINS = ['bitcoin', 'ethereum', 'solana', 'dogecoin', 'cardano', 'polkadot', 'ripple', 'avalanche-2'];
+        let marketData = {}; // { id: { price, change24h, change7d, sparkline } }
+        let portfolio = {}; // { coinId: { amount, avgPrice } }
+        let balance = 10000; // saldo USD
+        let transactions = [];
+        let currentModalCoin = null;
+        let currentModalAction = 'buy'; // 'buy' | 'sell'
+        let chartCoin = 'bitcoin';
+        let chartHistory = {}; // { coinId: [prices] }
 
-        function getDB(key) {
-            try { return JSON.parse(localStorage.getItem(key)) || []; } catch (e) { return []; }
-        }
-        function setDB(key, data) {
-            localStorage.setItem(key, JSON.stringify(data));
-        }
-        function getCurrentUser() {
-            try { return JSON.parse(localStorage.getItem(DB_KEYS.CURRENT_USER)); } catch (e) { return null; }
-        }
-        function setCurrentUser(user) {
-            localStorage.setItem(DB_KEYS.CURRENT_USER, JSON.stringify(user));
-        }
-        function clearCurrentUser() {
-            localStorage.removeItem(DB_KEYS.CURRENT_USER);
+        // ==================== API ====================
+        async function fetchMarketData() {
+            const ids = COINS.join(',');
+            try {
+                const res = await fetch(
+                    `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&sparkline=true&price_change_percentage=24h`
+                );
+                const data = await res.json();
+                data.forEach(coin => {
+                    marketData[coin.id] = {
+                        price: coin.current_price,
+                        change24h: coin.price_change_percentage_24h || 0,
+                        image: coin.image,
+                        symbol: coin.symbol.toUpperCase(),
+                        name: coin.name,
+                        sparkline: coin.sparkline_in_7d?.price || [],
+                    };
+                    // Simpan sparkline untuk chart
+                    if (!chartHistory[coin.id]) {
+                        chartHistory[coin.id] = coin.sparkline_in_7d?.price || [];
+                    } else {
+                        // Update chart history
+                        chartHistory[coin.id] = coin.sparkline_in_7d?.price || chartHistory[coin.id];
+                    }
+                });
+                renderMarket();
+                renderPortfolio();
+                renderChart();
+            } catch (err) {
+                console.error('Gagal fetch market:', err);
+                document.getElementById('marketBody').innerHTML =
+                    '<tr><td colspan="4" style="text-align:center;padding:40px;color:var(--red);">⚠️ Gagal memuat data. Coba refresh.</td></tr>';
+            }
         }
 
-        // Sync user data from Users array
-        function refreshCurrentUser() {
-            const cu = getCurrentUser();
-            if (!cu) return null;
-            const users = getDB(DB_KEYS.USERS);
-            const idx = users.findIndex(u => u.id === cu.id);
-            if (idx === -1) { clearCurrentUser(); return null; }
-            setCurrentUser(users[idx]);
-            return users[idx];
+        // ==================== RENDER MARKET ====================
+        function renderMarket() {
+            const tbody = document.getElementById('marketBody');
+            const coinIds = Object.keys(marketData);
+            if (coinIds.length === 0) return;
+
+            tbody.innerHTML = coinIds.map(id => {
+                const m = marketData[id];
+                const changeClass = m.change24h >= 0 ? 'change-positive' : 'change-negative';
+                const changeSign = m.change24h >= 0 ? '+' : '';
+                const iconColors = {
+                    'bitcoin': '#f7931a',
+                    'ethereum': '#627eea',
+                    'solana': '#9945ff',
+                    'dogecoin': '#c2a633',
+                    'cardano': '#0033ad',
+                    'polkadot': '#e6007a',
+                    'ripple': '#23292f',
+                    'avalanche-2': '#e84142',
+                };
+                const color = iconColors[id] || '#888';
+                return `
+                    <tr onclick="openModal('${id}', 'buy')">
+                        <td>
+                            <div class="coin-info">
+                                <div class="coin-icon" style="background:${color};">${m.symbol[0]}</div>
+                                <div>
+                                    <div class="coin-name">${m.ame}</div>
+                                    <div class="coin-symbol">${m.ymbol}</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="price">$${m.rice.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2})}</td>
+                        <td class="${changeClass}">${changeSign}${m.hange24h.toFixed(2)}%</td>
+                        <td>
+                            <button class="btn-sm btn-buy" onclick="event.stopPropagation(); openModal('${id}', 'buy')">Beli</button>
+                            <button class="btn-sm btn-sell" onclick="event.stopPropagation(); openModal('${id}', 'sell')" style="margin-left:4px;">Jual</button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
         }
 
-        function updateUserInDB(user) {
-            const users = getDB(DB_KEYS.USERS);
-            const idx = users.findIndex(u => u.id === user.id);
-            if (idx !== -1) users[idx] = user;
-            else users.push(user);
-            setDB(DB_KEYS.USERS, users);
-            setCurrentUser(user);
+        // ==================== RENDER PORTFOLIO ====================
+        function renderPortfolio() {
+            const list = document.getElementById('portfolioList');
+            const entries = Object.entries(portfolio).filter(([, v]) => v.amount > 0.0001);
+
+            if (entries.length === 0) {
+                list.innerHTML = '<div style="color:var(--text2);font-size:0.85rem;padding:20px 0;">Belum ada aset. Mulai beli crypto!</div>';
+                document.getElementById('totalPortfolioValue').textContent = `$${balance.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                document.getElementById('totalPnl').textContent = '+$0.00 (0.00%)';
+                document.getElementById('headerBalance').textContent = `$${balance.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+                return;
+            }
+
+            let totalAssetValue = 0;
+            let totalCost = 0;
+
+            list.innerHTML = entries.map(([id, holding]) => {
+                const m = marketData[id];
+                const currentPrice = m ? m.price : holding.avgPrice;
+                const assetValue = holding.amount * currentPrice;
+                const costBasis = holding.amount * holding.avgPrice;
+                const pnl = assetValue - costBasis;
+                const pnlPercent = costBasis > 0 ? ((pnl / costBasis) * 100) : 0;
+                const pnlClass = pnl >= 0 ? 'change-positive' : 'change-negative';
+                const pnlSign = pnl >= 0 ? '+' : '';
+
+                totalAssetValue += assetValue;
+                totalCost += costBasis;
+
+                const symbol = m ? m.symbol : id.substring(0, 3).toUpperCase();
+                return `
+                    <div class="portfolio-item">
+                        <div>
+                            <div class="portfolio-coin">🪙 ${symbol}</div>
+                            <div class="portfolio-amount">${holding.amount.toFixed(6)} ${symbol}</div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div class="portfolio-value">$${assetValue.toLocaleString(undefined, {minimumFractionDigits:2})}</div>
+                            <div class="portfolio-pnl ${pnlClass}">${pnlSign}$${Math.abs(pnl).toFixed(2)} (${pnlSign}${pnlPercent.toFixed(2)}%)</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const totalValue = balance + totalAssetValue;
+            const totalPnl = totalAssetValue - totalCost;
+            const totalPnlPercent = totalCost > 0 ? ((totalPnl / totalCost) * 100) : 0;
+            const pnlClass = totalPnl >= 0 ? 'change-positive' : 'change-negative';
+            const pnlSign = totalPnl >= 0 ? '+' : '';
+
+            document.getElementById('totalPortfolioValue').textContent = `$${totalValue.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            document.getElementById('totalPnl').innerHTML =
+                `<span class="${pnlClass}">${pnlSign}$${Math.abs(totalPnl).toFixed(2)} (${pnlSign}${totalPnlPercent.toFixed(2)}%)</span>`;
+            document.getElementById('headerBalance').textContent = `$${balance.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+        }
+
+        // ==================== RENDER CHART ====================
+        function renderChart() {
+            const canvas = document.getElementById('priceChart');
+            const ctx = canvas.getContext('2d');
+            const dpr = window.devicePixelRatio || 1;
+            const rect = canvas.parentElement.getBoundingClientRect();
+            const w = rect.width - 48;
+            const h = 180;
+            canvas.width = w * dpr;
+            canvas.height = h * dpr;
+            canvas.style.width = w + 'px';
+            canvas.style.height = h + 'px';
+            ctx.scale(dpr, dpr);
+
+            const prices = chartHistory[chartCoin] || [];
+            if (prices.length < 2) {
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = '14px Inter, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('Data grafik belum tersedia', w / 2, h / 2);
+                return;
+            }
+
+            // Clear
+            ctx.clearRect(0, 0, w, h);
+
+            // Grid
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 0.5;
+            for (let i = 0; i <= 4; i++) {
+                const y = (h / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(0, y);
+                ctx.lineTo(w, y);
+                ctx.stroke();
+            }
+
+            const min = Math.min(...prices) * 0.995;
+            const max = Math.max(...prices) * 1.005;
+            const range = max - min;
+            const stepX = w / (prices.length - 1);
+
+            // Gradient fill
+            const grad = ctx.createLinearGradient(0, 0, 0, h);
+            grad.addColorStop(0, 'rgba(59, 130, 246, 0.3)');
+            grad.addColorStop(1, 'rgba(59, 130, 246, 0.0)');
+
+            ctx.beginPath();
+            ctx.moveTo(0, h - ((prices[0] - min) / range) * h);
+            for (let i = 1; i < prices.length; i++) {
+                ctx.lineTo(i * stepX, h - ((prices[i] - min) / range) * h);
+            }
+            ctx.strokeStyle = '#3b82f6';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            // Fill
+            ctx.lineTo((prices.length - 1) * stepX, h;
+            ctx.lineTo(0, h);
+            ctx.closePath();
+            ctx.fillStyle = grad;
+            ctx.fill();
+
+            // Min/Max labels
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '10px Inter, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(`$${max.toFixed(0)}`, 4, 12);
+            ctx.fillText(`$${min.toFixed(0)}`, 4, h -4);
+        }
+
+        // ==================== MODAL ====================
+        function openModal(coinId, action) {
+            currentModalCoin = coinId;
+            currentModalAction = action;
+            const m = marketData[coinId];
+            if (!m) return;
+
+            const modalTitle = action === 'buy' ? `Beli ${m.name}` : `Jual ${m.name}`;
+            document.getElementById('modalTitle').textContent = modalTitle;
+            document.getElementById('modalPrice').textContent = `Harga: $${m.price.toLocaleString(undefined, {minimumFractionDigits:2})}`;
+            document.getElementById('modalAmount').value = '';
+            document.getElementById('modalReceive').textContent = `0.00000000 ${m.symbol}`;
+            document.getElementById('modalFee').textContent = '$0.00';
+            document.getElementById('modalTotal').textContent = '$0.00';
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+            confirmBtn.textContent = action === 'buy' ? 'Beli' : 'Jual';
+            confirmBtn.className = action === 'buy' ? 'btn btn-primary' : 'btn btn-danger';
+
+            document.getElementById('modalOverlay').classList.remove('hidden');
+            document.getElementById('modalAmount').focus();
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.add('hidden');
+            currentModalCoin = null;
+        }
+
+        document.getElementById('modalAmount').addEventListener('input', function() {
+            if (!currentModalCoin) return;
+            const m = marketData[currentModalCoin];
+            if (!m) return;
+            const amountUSD = parseFloat(this.value) || 0;
+            const fee = amountUSD * 0.005;
+            const net = amountUSD - fee;
+            const receive = net / m.price;
+
+            document.getElementById('modalReceive').textContent = `${receive.toFixed(8)} ${m.symbol}`;
+            document.getElementById('modalFee').textContent = `$${fee.toFixed(2)}`;
+            document.getElementById('modalTotal').textContent = `$${amountUSD.toFixed(2)}`;
+        });
+
+        // ==================== TRANSACTION ====================
+        function confirmTransaction() {
+            if (!currentModalCoin) return;
+            const m = marketData[currentModalCoin];
+            if (!m) return;
+            const amountUSD = parseFloat(document.getElementById('modalAmount').value) || 0;
+            if (amountUSD <= 0) {
+                showToast('⚠️ Masukkan jumlah yang valid', true);
+                return;
+            }
+
+            const fee = amountUSD * 0.005;
+            const net = amountUSD - fee;
+            const receive = net / m.price;
+
+            if (currentModalAction === 'buy') {
+                if (amountUSD > balance) {
+                    showToast('⚠️ Saldo tidak mencukupi!', true);
+                    return;
+                }
+                balance -= amountUSD;
+                if (!portfolio[currentModalCoin]) {
+                    portfolio[currentModalCoin] = { amount: 0, avgPrice: 0 };
+                }
+                const holding = portfolio[currentModalCoin];
+                const totalCost = holding.amount * holding.avgPrice + net;
+                holding.amount += receive;
+                holding.avgPrice = totalCost / holding.amount;
+            } else {
+                // Sell
+                const holding = portfolio[currentModalCoin];
+                if (!holding || holding.amount < receive) {
+                    showToast('⚠️ Aset tidak mencukupi!', true);
+                    return;
+                }
+                holding.amount -= receive;
+                balance += net;
+                if (holding.amount < 0.000001) {
+                    delete portfolio[currentModalCoin];
+                }
+            }
+
+            // Record transaction
+            transactions.unshift({
+                date: new Date().toISOString(),
+                coin: currentModalCoin,
+                symbol: m.symbol,
+                action: currentModalAction,
+                amountUSD,
+                amountCrypto: receive,
+                price: m.price,
+            });
+
+            closeModal();
+            renderMarket();
+            renderPortfolio();
+            renderTransactions();
+            showToast(`✅ Berhasil ${currentModalAction === 'buy' ? 'membeli' : 'menjual'} ${m.symbol}!`);
+        }
+
+        function renderTransactions() {
+            const container = document.getElementById('txHistory');
+            if (transactions.length === 0) {
+                container.innerHTML = '<div style="color:var(--text2);font-size:0.85rem;">Belum ada transaksi.</div>';
+                return;
+            }
+            container.innerHTML = transactions.slice(0, 10).map(tx => {
+                const date = new Date(tx.date).toLocaleString('id-ID', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
+                return `
+                    <div class="tx-item">
+                        <span class="tx-badge ${tx.action}">${tx.action}</span>
+                        <div style="flex:1;">
+                            <strong>${tx.amountCrypto.toFixed(6)} ${tx.symbol}</strong>
+                            <div class="tx-date">${date} • @ $${tx.price.toFixed(2)}</div>
+                        </div>
+                        <div style="font-weight:700;">$${tx.amountUSD.toFixed(2)}</div>
+                    </div>
+                `;
+            }).join(''));
         }
 
         // ==================== TOAST ====================
-        function showToast(message, type = 'info') {
-            const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.textContent = message;
-            container.appendChild(toast);
-            setTimeout(() => { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(() => toast.remove(), 300); }, 3000);
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.style.background = isError ? 'var(--red)' : 'var(--green)';
+            toast.classList.remove('hidden');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.add('hidden'), 2500);
         }
 
-        // ==================== HELPER FUNCTIONS ====================
-        function generateId() {
-            return 'crypto_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-        }
-        function formatCurrency(amount) {
-            return '$' + parseFloat(amount).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/, ',');
-        }
-        function formatDatetime(dateStr) {
-            if (!dateStr) return '-';
-            const d = new Date(dateStr);
-            return d.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-        }
-        function timeAgo(dateStr) {
-            if (!dateStr) return '-';
-            const now = new Date();
-            const then = new Date(dateStr);
-            const diffMs = now - then;
-            const mins = Math.floor(diffMs / 60000);
-            const hrs = Math.floor(diffMs / 3600000);
-            const days = Math.floor(diffMs / 86400000);
-            if (mins < 1) return 'Baru saja';
-            if (mins < 60) return mins + ' menit lalu';
-            if (hrs < 24) return hrs + ' jam lalu';
-            return days + ' hari lalu';
-        }
-        function copyToClipboard(text) {
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(text).then(() => showToast('Berhasil disalin!', 'success'));
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast('Berhasil disalin!', 'success');
+        // ==================== CHART TABS ====================
+        document.getElementById('chartTabs').addEventListener('click', function(e) {
+            if (e.target.agName === 'BUTTON') {
+                document.querySelectorAll('.chart-tab').forEach(b => b.classList.remove('active'));
+                e.target.classList.add('active');
+                chartCoin = e.target.dataset.coin;
+                renderChart();
             }
+        });
+
+        // ==================== MODAL CLICK OUTSIDE ====================
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // ==================== KEYBOARD ====================
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // ==================== RESIZE ====================
+        window.addEventListener('resize', renderChart);
+
+        // ==================== INIT ====================
+        async function init() {
+            await fetchMarketData();
+            renderTransactions();
+            // Auto-refresh setiap 60 detik
+            setInterval(fetchMarketData, 60000);
         }
 
-        // ==================== AUTH: REGISTER ====================
-        function registerUser(username, email, password, referralCode) {
-            const users = getDB(DB_KEYS.USERS);
-            if (users.find(u => u.email === email)) {
-                showToast('Email sudah terdaftar!', 'error');
-                return false;
-            }
-            if (users.find(u => u.username === username)) {
-                showToast('Username sudah digunakan!', 'error');
-                return false;
-            }
-
-            const newUser = {
-                id: generateId(),
-                username,
-                email,
-                password,
-                balance: 0,
-                profitBalance: 0,
-                totalDeposit: 0,
-                totalWithdraw: 0,
-                referralCode: 'REF' + Math.random().toString(36).substr(2, 6).toUpperCase(),
-                referredBy: referralCode || null,
-                referralEarnings: 0,
-                registeredAt: new Date().toISOString(),
-                lastProfitUpdate: new Date().toISOString(),
-            };
-
-            // Handle referral
-            if (referralCode) {
-                const referrer = users.find(u => u.referralCode === referralCode);
-                if (referrer) {
-                    newUser.referredBy = referralCode;
-                    // Initial small bonus
-                    newUser.balance += 5;
-                    showToast('Bonus $5 dari referral!', 'success');
-                } else {
-                    showToast('Kode referral tidak ditemukan, tetap mendaftar tanpa referral.', 'info');
-                    newUser.referredBy = null;
-                }
-            }
-
-            users.push(newUser);
-            setDB(DB_KEYS.USERS, users);
-            setCurrentUser(newUser);
-            showToast('Registrasi berhasil! Selamat datang, ' + username + '!', 'success');
-            return true;
-        }
-
-        function loginUser(email, password) {
-            const users = getDB(DB_KEYS.USERS);
-            const user = users.find(u => u.email === email && u.password === password);
-            if (!user) {
-                showToast('Email atau password salah!', 'error');
-                return false;
-            }
-            setCurrentUser(user);
-            showToast('Login berhasil! Selamat datang kembali, ' + user.username + '!', 'success');
-            return true;
-        }
-
-        function logout() {
-            if (confirm('Apakah Anda yakin ingin logout?')) {
-                clearCurrentUser();
-                showToast('Berhasil logout.', 'info');
-                renderApp();
-            }
-        }
-
-        // ==================== DEPOSIT ====================
-        function submitDeposit(user, amount, method, txHash) {
-            const deposit = {
-                id: generateId(),
-                userId: user.id,
-                amount: parseFloat(amount),
-                method,
-                txHash: txHash || '',
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-            };
-            const deposits = getDB(DB_KEYS.DEPOSITS);
-            deposits.unshift(deposit);
-            setDB(DB_KEYS.DEPOSIT S, deposits);
-            showToast('Deposit berhasil dikirim! Menunggu konfirmasi.', 'success');
-            return deposit;
-        }
-
-        function approveDeposit(depositId) {
-            const deposits = getDB(DB_KEYS.DEPOSITS);
-            const dep = deposits.find(d => d.id === depositId);
-            if (!dep || dep.status !== 'pending') return;
-            dep.status = 'approved';
-            dep.updatedAt = new Date().toISOString();
-            setDB(DB_KEYS.DEPOSITS, deposits);
-
-            const users = getDB(DB_KEYS.USERS);
-            const user = users.find(u => u.id === dep.userId);
-            if (user) {
-                user.balance += dep.amount;
-                user.totalDeposit += dep.amount;
-                updateUserInDB(user);
-
-                // Referral commission for the referrer
-                if (user.referredBy) {
-                    const referrer = users.find(u => u.referralCode === user.referredBy);
-                    if (referrer && referrer.id !== user.id) {
-                        const commission = dep.amount * 0.15;
-                        referrer.referralEarnings += commission;
-                        referrer.balance += commission;
-                        const refIdx = users.findIndex(u => u.id === referrer.id);
-                        if (refIdx !== -1) users[refIdx] = referrer;
-                        setDB(DB_KEYS.USERS, users);
-                    }
-                }
-            }
-        }
-
-        // ==================== WITHDRAWAL ====================
-        function submitWithdrawal(user, amount, method, address) {
-            const withdrawal = {
-                id: generateId(),
-                userId: user.id,
-                amount: parseFloat(amount),
-                method,
-                address,
-                status: 'pending',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString(),
-            };
-            const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
-            withdrawals.unshift(withdrawal);
-            setDB(DB_KEYS.WITHDRAWALS, withdrawals);
-
-            // Deduct from balance
-            user.balance -= parseFloat(amount);
-            updateUserInDB(user);
-            showToast('Penarikan berhasil diajukan! Menunggu proses.', 'success');
-            return withdrawal;
-        }
-
-        function approveWithdrawal(withdrawalId) {
-            const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
-            const wd = withdrawals.find(w => w.id === withdrawalId);
-            if (!wd || wd.status !== 'pending') return;
-            wd.status = 'approved';
-            wd.updatedAt = new Date().toISOString();
-            setDB(DB_KEYS.WITHDRAWALS, withdrawals);
-
-            const users = getDB(DB_KEYS.USERS);
-            const user = users.find(u => u.id === wd.userId);
-            if (user) {
-                user.totalWithdraw += wd.amount;
-                const idx = users.findIndex(u => u.id === user.id);
-                if (idx !== -1) users[idx] = user;
-                setDB(DB_KEYS.USERS, users);
-                setCurrentUser(user);
-            }
-        }
-
-        // ==================== DAILY PROFIT ====================
-        function calculateDailyProfit(user) {
-            if (!user || user.totalDeposit <= 0) return 0;
-
-            const now = new Date();
-            const lastUpdate = new Date(user.lastProfitUpdate || user.registeredAt);
-            const diffTime = now - lastUpdate;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-            if (diffDays <= 0) return 0;
-
-            const dailyRate = 0.009; // 0.9%
-            let totalProfit = 0;
-
-            for (let i = 0; i < diffDays; i++) {
-                totalProfit += user.totalDeposit * dailyRate;
-            }
-
-            return totalProfit;
-        }
-
-        function updateProfitBalances() {
-            const users = getDB(DB_KEYS.USERS);
-            let changed = false;
-
-            users.forEach(user => {
-                const profit = calculateDailyProfit(user);
-                if (profit > 0) {
-                    user.profitBalance += profit;
-                    user.lastProfitUpdate = new Date().toISOString();
-                    changed = true;
-                }
-            });
-
-            if (changed) setDB(DB_KEYS.USERS, users);
-
-            // Refresh current user
-            const cu = getCurrentUser();
-            if (cu) {
-                const fresh = users.find(u => u.id === cu.id);
-                if (fresh) setCurrentUser(fresh);
-            }
-        }
-
-        // ==================== UI RENDERING ====================
-        let currentPage = 'dashboard';
-
-        function renderApp() {
-            updateProfitBalances();
-            const user = getCurrentUser();
-
-            if (!user) {
-                renderAuthPage();
-                return;
-            }
-
-            renderSidebar(user);
-            renderTopbar(user);
-            renderPage(currentPage, user);
-        }
-
-        function renderAuthPage() {
-            document.getElementById('sidebar').style.display = 'none';
-            document.getElementById('sidebarOverlay').style.display = 'none';
-            const topbar = document.querySelector('.topbar');
-            if (topbar) topbar.style.display = 'none';
-
-            const contentArea = document.getElementById('contentArea');
-            contentArea.style.padding = '0';
-            contentArea.innerHTML = renderAuthHTML();
-        }
-
-        function renderAuthHTML() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const ref = urlParams.get('ref') || '';
-            const mode = urlParams.get('mode') || 'login'; // login or register
-
-            return `
-                <div class="auth-container">
-                    <div class="auth-card">
-                        <h1>₿ CryptoVest</h1>
-                        <p class="subtitle">Platform Investasi Crypto Terpercaya</p>
-                        <div style="display:flex;gap:8px;margin-bottom:24px;">
-                            <button class="btn ${mode === 'login' ? 'btn-gold' : 'btn-outline'} btn-block" onclick="switchAuthMode('login')">Login</button>
-                            <button class="btn ${mode === 'register' ? 'btn-gold' : 'btn-outline'} btn-block" onclick="switchAuthMode('register')">Register</button>
-                        </div>
-                        <div id="authFormContainer">
-                            ${mode === 'login' ? renderLoginForm() : renderRegisterForm(ref)}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function renderLoginForm() {
-            return `
-                <form onsubmit="handleLogin(event)">
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="loginEmail" placeholder="Masukkan email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="loginPassword" placeholder="Masukkan password" required>
-                    </div>
-                    <button type="submit" class="btn btn-gold btn-block">🔓 Login</button>
-                </form>
-                <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--text-muted);">
-                    Demo: email <b>demo@crypto.com</b> pass <b>demo123</b>
-                </p>
-            `;
-        }
-
-        function renderRegisterForm(ref) {
-            return `
-                <form onsubmit="handleRegister(event)">
-                    <div class="form-group">
-                        <label>Username</label>
-                        <input type="text" id="regUsername" placeholder="Pilih username" required minlength="3">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" id="regEmail" placeholder="Masukkan email" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" id="regPassword" placeholder="Min. 6 karakter" required minlength="6">
-                    </div>
-                    <div class="form-group">
-                        <label>Kode Referral (Opsional)</label>
-                        <input type="text" id="regReferral" placeholder="Masukkan kode referral" value="${ref}">
-                    </div>
-                    <button type="submit" class="btn btn-gold btn-block">🚀 Daftar Sekarang</button>
-                </form>
-            `;
-        }
-
-        function switchAuthMode(mode) {
-            const url = new URL(window.location);
-            url.searchParams.set('mode', mode);
-            window.history.pushState({}, '', url);
-            currentPage = 'auth';
-            renderApp();
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            if (loginUser(email, password)) {
-                currentPage = 'dashboard';
-                renderApp();
-            }
-        }
-
-        function handleRegister(e) {
-            e.preventDefault();
-            const username = document.getElementById('regUsername').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
-            const password = document.getElementById('regPassword').value;
-            const referral = document.getElementById('regReferral').value.trim();
-
-            if (registerUser(username, email, password, referral)) {
-                currentPage = 'dashboard';
-                renderApp();
-            }
-        }
-
-        function renderSidebar(user) {
-            document.getElementById('sidebar').style.display = 'flex';
-            document.querySelector('.topbar').style.display = 'flex';
-
-            const navItems = [
-                { id: 'dashboard', icon: '📊', label: 'Dashboard', section: 'UTAMA' },
-                { id: 'deposit', icon: '💰', label: 'Deposit', section: 'TRANSAKSI' },
-                { id: 'deposit-history', icon: '📋', label: 'Riwayat Deposit' },
-                { id: 'deposit-address', icon: '📍', label: 'Alamat Deposit' },
-                { id: 'withdrawal', icon: '💸', label: 'Penarikan' },
-                { id: 'withdrawal-history', icon: '📝', label: 'Riwayat Penarikan' },
-                { id: 'withdrawal-address', icon: '🏦', label: 'Alamat Penarikan' },
-                { id: 'profit', icon: '📈', label: 'Keuntungan Harian', section: 'KEUANGAN' },
-                { id: 'referral', icon: '👥', label: 'Komisi Undang Teman' },
-            ];
-
-            let html = '';
-            let lastSection = '';
-            navItems.forEach(item => {
-                if (item.section && item.section !== lastSection) {
-                    html += `<div class="nav-section"><div class="nav-section-title">${item.section}</div></div>`;
-                    lastSection = item.section;
-                }
-                html += `
-                    <button class="nav-item ${currentPage === item.id ? 'active' : ''}" onclick="navigateTo('${item.id}')">
-                        <span class="nav-icon">${item.icon}</span> ${item.label}
-                    </button>
-                `;
-            });
-
-            html += `
-                <button class="nav-item logout-btn" onclick="logout()">
-                    <span class="nav-icon">🚪</span> Logout
-                </button>
-            `;
-
-            document.getElementById('sidebarNav').innerHTML = html;
-        }
-
-        function renderTopbar(user) {
-            document.getElementById('pageTitle').textContent = getPageTitle(currentPage);
-            document.getElementById('topbarRight').innerHTML = `
-                <div class="user-badge">
-                    <div class="avatar">${user.username.charAt(0).toUpperCase()}</div>
-                    <span>${user.username}</span>
-                    <span style="color:var(--gold);font-weight:600;">${formatCurrency(user.balance + user.profitBalance)}</span>
-                </div>
-            `;
-        }
-
-        function getPageTitle(page) {
-            const titles = {
-                'dashboard': 'Dashboard',
-                'deposit': 'Deposit',
-                'deposit-history': 'Riwayat Deposit',
-                'deposit-address': 'Alamat Deposit',
-                'withdrawal': 'Penarikan',
-                'withdrawal-history': 'Riwayat Penarikan',
-                'withdrawal-address': 'Alamat Penarikan',
-                'profit': 'Keuntungan Harian 0,9%',
-                'referral': 'Komisi Undang Teman 15%',
-            };
-            return titles[page] || 'Dashboard';
-        }
-
-        function navigateTo(page) {
-            currentPage = page;
-            const user = getCurrentUser();
-            if (!user) { renderApp(); return; }
-            renderSidebar(user);
-            renderTopbar(user);
-            renderPage(page, user);
-            if (window.innerWidth < 768) closeSidebar();
-        }
-
-        function renderPage(page, user) {
-            const contentArea = document.getElementById('contentArea');
-            contentArea.style.padding = '28px';
-            switch (page) {
-                case 'dashboard': contentArea.innerHTML = renderDashboard(user); break;
-                case 'deposit': contentArea.innerHTML = renderDepositPage(user); break;
-                case 'deposit-history': contentArea.innerHTML = renderDepositHistory(user); break;
-                case 'deposit-address': contentArea.innerHTML = renderDepositAddress(user); break;
-                case 'withdrawal': contentArea.innerHTML = renderWithdrawalPage(user); break;
-                case 'withdrawal-history': contentArea.innerHTML = renderWithdrawalHistory(user); break;
-                case 'withdrawal-address': contentArea.innerHTML = renderWithdrawalAddress(user); break;
-                case 'profit': contentArea.innerHTML = renderProfitPage(user); break;
-                case 'referral': contentArea.innerHTML = renderReferralPage(user); break;
-                default: contentArea.innerHTML = renderDashboard(user);
-            }
-            attachPageEvents(page, user);
-        }
-
-        // ==================== DASHBOARD ====================
-        function renderDashboard(user) {
-            const deposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id && d.status === 'approved');
-            const withdrawals = getDB(DB_KEYS.WITHDRAWALS).filter(w => w.userId === user.id && w.status === 'approved');
-            const pendingDeposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id && d.status === 'pending');
-            const totalBalance = user.balance + user.profitBalance;
-
-            // Check daily profit
-            const todayProfit = calculateDailyProfit(user);
-
-            return `
-                <div class="page-header">
-                    <h2>Selamat Datang, ${user.username}! 👋</h2>
-                    <p>Ringkasan akun investasi crypto Anda</p>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card gold">
-                        <div class="stat-icon">💎</div>
-                        <div class="stat-label">Saldo Total</div>
-                        <div class="stat-value">${formatCurrency(totalBalance)}</div>
-                        <div class="stat-sub">Saldo aktif + keuntungan</div>
-                    </div>
-                    <div class="stat-card blue">
-                        <div class="stat-icon">💵</div>
-                        <div class="stat-label">Saldo Aktif</div>
-                        <div class="stat-value">${formatCurrency(user.balance)}</div>
-                        <div class="stat-sub">Siap ditarik</div>
-                    </div>
-                    <div class="stat-card green">
-                        <div class="stat-icon">📈</div>
-                        <div class="stat-label">Kuntungan Harian</div>
-                        <div class="stat-value">${formatCurrency(user.profitBalance)}</div>
-                        <div class="stat-sub">+0,9% per hari dari total deposit</div>
-                    </div>
-                    <div class="stat-card gold">
-                        <div class="stat-icon">👥</div>
-                        <div class="stat-label">Komisi Referral</div>
-                        <div class="stat-value">${formatCurrency(user.referralEarnings)}</div>
-                        <div class="stat-sub">15% dari deposit referral</div>
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-label">Total Deposit</div>
-                        <div class="stat-value" style="color:var(--green)">${formatCurrency(user.totalDeposit)}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Total Penarikan</div>
-                        <div class="stat-value" style="color:var(--red)">${formatCurrency(user.totalWithdraw)}</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Deposit Pending</div>
-                        <div class="stat-value" style="color:var(--gold)">${pendingDeposits.length} tx</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Keuntungan Hari Ini</div>
-                        <div class="stat-value" style="color:var(--green)">${formatCurrency(todayProfit)}</div>
-                    </div>
-                </div>
-
-                <div style="margin-top:16px;display:flex;gap:12px;flex-wrap:wrap;">
-                    <button class="btn btn-gold" onclick="navigateTo('deposit')">💰 Deposit Sekarang</button>
-                    <button class="btn btn-blue" onclick="navigateTo('withdrawal')">💸 Tarik Dana</button>
-                    <button class="btn btn-outline" onclick="navigateTo('referral')">👥 Undang Teman</button>
-                </div>
-            `;
-        }
-
-        // ==================== DEPOSIT PAGE ====================
-        function renderDepositPage(user) {
-            return `
-                <div class="page-header">
-                    <h2>💰 Deposit Crypto</h2>
-                    <p>Lakukan deposit untuk mulai berinvestasi</p>
-                </div>
-                <div class="form-card">
-                    <h3>Form Deposit</h3>
-                    <form id="depositForm" onsubmit="handleDeposit(event)">
-                        <div class="form-group">
-                            <label>Jumlah Deposit (USD)</label>
-                            <input type="number" id="depositAmount" placeholder="Min. $10" required min="10" step="0.01">
-                            <div class="input-hint">Minimal deposit $10 USD</div>
-                        </div>
-                        <div class="form-group">
-                            <label>Metode Pembayaran</label>
-                            <select id="depositMethod" required>
-                                <option value="">Pilih metode...</option>
-                                <option value="BTC">Bitcoin (BTC)</option>
-                                <option value="ETH">Ethereum (ETH)</option>
-                                <option value="USDT">USDT (TRC20)</option>
-                                <option value="BNB">BNB Smart Chain</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Tx Hash / ID Transaksi</label>
-                            <input type="text" id="depositTxHash" placeholder="Masukkan Tx Hash transaksi Anda" required>
-                        </div>
-                        <button type="submit" class="btn btn-gold btn-block">💸 Kirim Deposit</button>
-                    </form>
-                    <p class="text-muted" style="margin-top:12px;">* Deposit akan dikonfirmasi dalam 1-3 jam kerja</p>
-                </div>
-            `;
-        }
-
-        function handleDeposit(e) {
-            e.preventDefault();
-            const user = getCurrentUser();
-            if (!user) return;
-            const amount = document.getElementById('depositAmount').value;
-            const method = document.getElementById('depositMethod').value;
-            const txHash = document.getElementById('depositTxHash').value.trim();
-
-            if (parseFloat(amount) < 10) {
-                showToast('Minimal deposit $10!', 'error');
-                return;
-            }
-
-            submitDeposit(user, amount, method, txHash);
-            document.getElementById('depositForm').reset();
-            // Simulate auto-approval for demo
-            simulateApproval();
-            setTimeout(() => navigateTo('deposit-history'), 1000);
-        }
-
-        function simulateApproval() {
-            // For demo: auto-approve pending deposits after 3 seconds
-            setTimeout(() => {
-                const deposits = getDB(DB_KEYS.DEPOSITS);
-                const pending = deposits.find(d => d.status === 'pending');
-                if (pending) {
-                    approveDeposit(pending.id);
-                    showToast('✅ Deposit telah dikonfirmasi!', 'success');
-                    const user = getCurrentUser();
-                    if (user) {
-                        renderSidebar(user);
-                        renderTopbar(user);
-                        renderPage(currentPage, user);
-                    }
-                }
-            }, 3000);
-        }
-
-        // ==================== DEPOSIT HISTORY ====================
-        function renderDepositHistory(user) {
-            const deposits = getDB(DB_KEYS.DEPOSITS).filter(d => d.userId === user.id);
-
-            let tableRows = '';
-            if (deposits.length === 0) {
-                tableRows = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada riwayat deposit</p></div></td></tr>`;
-            } else {
-                deposits.forEach(d => {
-                    const statusBadge = d.status === 'approved' ? '<span class="badge badge-success">✅ Disetujui</span>' :
-                                        d.status === 'pending' ? '<span class="badge badge-warning">⏳ Pending</span>' :
-                                        '<span class="badge badge-danger">❌ Ditolak</span>';
-                    tableRows += `
-                        <tr>
-                            <td style="font-family:monospace;font-size:11px;">${d.id.substr(-12)}</td>
-                            <td class="text-gold" style="font-weight:600;">${formatCurrency(d.amount)}</td>
-                            <td>${d.method}</td>
-                            <td style="font-family:monospace;font-size:11px;">${d.txHash ? d.txHash.substr(0, 20) + '...' : '-'}</td>
-                            <td>${statusBadge}</td>
-                            <td>${timeAgo(d.createdAt)}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            return `
-                <div class="page-header">
-                    <h2>📋 Riwayat Deposit</h2>
-                    <p>Semua riwayat transaksi deposit Anda</p>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID Transaksi</th>
-                                <th>Jumlah</th>
-                                <th>Metode</th>
-                                <th>Tx Hash</th>
-                                <th>Status</th>
-                                <th>Waktu</th>
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-                </div>
-            `;
-        }
-
-        // ==================== DEPOSIT ADDRESS ====================
-        function renderDepositAddress(user) {
-            const addresses = {
-                BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p7kk4hxxluy9x',
-                ETH: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-                USDT: 'TXhG7WmfF1Vf5HUxjG8L7RqXvJmMqHqPKs',
-                BNB: '0x71C7656EC7ab88b098defB751B7401B5f6d8976F',
-            };
-
-            return `
-                <div class="page-header">
-                    <h2>📍 Alamat Deposit</h2>
-                    <p>Gunakan alamat di bawah untuk melakukan deposit crypto</p>
-                </div>
-                <div class="form-card" style="max-width:100%;">
-                    <h3>Alamat Wallet Deposit</h3>
-                    <p class="text-muted" style="margin-bottom:20px;">⚠️ Pastikan mengirim ke jaringan yang tepat. Kirim hanya USDT ke alamat USDT, BTC ke alamat BTC, dst.</p>
-
-                    ${Object.entries(addresses).map(([coin, addr]) => `
-                        <div class="form-group">
-                            <label><strong>${coin}</strong> Network</label>
-                            <div style="display:flex;gap:8px;">
-                                <input type="text" value="${addr}" readonly style="font-family:monospace;font-size:13px;flex:1;">
-                                <button class="btn btn-outline btn-sm" onclick="copyToClipboard('${addr}')">📋 Salin</button>
-                            </div>
-                        </div>
-                    `).join('')}
-
-                    <div style="background:rgba(240,185,11,0.08);border:1px solid rgba(240,185,11,0.2);border-radius:8px;padding:12px 16px;margin-top:16px;">
-                        <strong style="color:var(--gold)">⚠️ Penting!</strong>
-                        <p style="font-size:12px;color:var(--text-secondary);margin-top:4px;">
-                            Setelah transfer, masukkan Tx Hash di halaman <a href="#" onclick="navigateTo('deposit')" style="color:var(--gold);">Deposit</a> untuk konfirmasi.
-                        </p>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ==================== WITHDRAWAL PAGE ====================
-        function renderWithdrawalPage(user) {
-            const totalBalance = user.balance + user.profitBalance;
-            return `
-                <div class="page-header">
-                    <h2>💸 Penarikan Dana</h2>
-                    <p>Tarik keuntungan dan saldo Anda</p>
-                </div>
-                <div class="form-card">
-                    <h3>Form Penarikan</h3>
-                    <div style="background:var(--bg-primary);padding:16px;border-radius:8px;margin-bottom:20px;">
-                        <span style="color:var(--text-muted)">Saldo Tersedia: </span>
-                        <strong style="color:var(--gold);font-size:20px;">${formatCurrency(user.balance)}</strong>
-                        <br><span class="text-muted" style="font-size:11px;">*Saldo aktif yang bisa ditarik</span>
-                    </div>
-                    <form id="withdrawalForm" onsubmit="handleWithdrawal(event)">
-                        <div class="form-group">
-                            <label>Jumlah Penarikan (USD)</label>
-                            <input type="number" id="withdrawalAmount" placeholder="Min. $10" required min="10" step="0.01">
-                            <div class="input-hint">Minimal $10 | Maksimal: ${formatCurrency(user.balance)}</div>
-                        </div>
-                        <div class="form-group">
-                            <label>Metode Penarikan</label>
-                            <select id="withdrawalMethod" required>
-                                <option value="">Pilih metode...</option>
-                                <option value="BTC">Bitcoin (BTC)</option>
-                                <option value="ETH">Ethereum (ETH)</option>
-                                <option value="USDT">USDT (TRC20)</option>
-                                <option value="BNB">BNB Smart Chain</option>
-                                <option value="BANK">Tranfer Bank</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Alamat / No. Rekening</label>
-                            <input type="text" id="withdrawalAddress" placeholder="Masukkan alamat wallet atau no. rekening" required>
-                        </div>
-                        <button type="submit" class="btn btn-gold btn-block">💸 Ajukan Penarikan</button>
-                    </form>
-                </div>
-            `;
-        }
-
-        function handleWithdrawal(e) {
-            e.preventDefault();
-            const user = getCurrentUser();
-            if (!user) return;
-            const amount = parseFloat(document.getElementById('withdrawalAmount').value);
-            const method = document.getElementById('withdrawalMethod').value;
-            const address = document.getElementById('withdrawalAddress').value.trim();
-
-            if (amount < 10) {
-                showToast('Minimal penarikan $10!', 'error');
-                return;
-            }
-            if (amount > user.balance) {
-                showToast('Saldo tidak mencukupi!', 'error');
-                return;
-            }
-
-            submitWithdrawal(user, amount, method, address);
-            document.getElementById('withdrawalForm').reset();
-            // Simulate auto-approval
-            setTimeout(() => {
-                const withdrawals = getDB(DB_KEYS.WITHDRAWALS);
-                const pending = withdrawals.find(w => w.userId === user.id && w.status === 'pending');
-                if (pending) {
-                    approveWithdrawal(pending.id);
-                    showToast('✅ Penarikan telah diproses!', 'success');
-                    navigateTo('withdrawal-history');
-                }
-            }, 4000);
-            setTimeout(() => navigateTo('withdrawal-history'), 1000);
-        }
-
-        // ==================== WITHDRAWAL HISTORY ====================
-        function renderWithdrawalHistory(user) {
-            const withdrawals = getDB(DB_KEYS.WITHDRAWALS).filter(w => w.userId === user.id);
-
-            let tableRows = '';
-            if (withdrawals.length === 0) {
-                tableRows = `<tr><td colspan="6"><div class="empty-state"><div class="empty-icon">📭</div><p>Belum ada riwayat penarikan</p></div></td></tr>`;
-            } else {
-                withdrawals.forEach(w => {
-                    const statusBadge = w.status === 'approved' ? '<span class="badge badge-success">✅ Selesai</span>' :
-                                        w.status === 'pending' ? '<span class="badge badge-warning">⏳ Menunggu</span>' :
-                                        '<span class="badge badge-danger">❌ Ditolak</span>';
-                    tableRows += `
-                        <tr>
-                            <td style="font-family:monospace;font-size:11px;">${w.id.substr(-12)}</td>
-                            <td class="text-red" style="font-weight:600;">${formatCurrency(w.amount)}</td>
-                            <td>${w.method}</td>
-                            <td style="font-family:monospace;font-size:11px;">${w.address ? w.address.substr(0, 20) + '...' : '-'}</td>
-                            <td>${statusBadge}</td>
-                            <td>${timeAgo(w.createdAt)}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            return `
-                <div class="page-header">
-                    <h2>📝 Riwayat Penarikan</h2>
-                    <p>Semua riwayat penarikan dana Anda</p>
-                </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID Transaksi</th>
-                                <th>Jumlah</th>
-                                <th>Metode</th>
-                                <th>Alamat</th>
-                                <th>Status</th>
-                                <th>Waktu</th>
-                            </tr>
-                        </thead>
-                        <tbody>${tableRows}</tbody>
-                    </table>
-                </div>
-            `;
-        }
-
-        // ==================== WITHDRAWAL ADDRESS ====================
-        function renderWithdrawalAddress(user) {
-            return `
-                <div class="page-header">
-                    <h2>🏦 Alamat Penarikan Tersimpan</h2>
-                    <p>Kelola alamat penarikan Anda</p>
-                </div>
-                <div class="form-card" style="max-width:100%;">
-                    <h3>Daftar Alamat Penarikan</h3>
-
-                    <div id="savedAddressesList">
-                        ${renderSavedAddresses(user)}
-                    </div>
-
-                    <div style="margin-top:24px;border-top:1px solid var(--border);padding-top:20px;">
-                        <h4 style="margin-bottom:12px;">➕ Tambah Alamat Baru</h4>
-                        <form id="addAddressForm" onsubmit="handleAddWithdrawalAddress(event)">
-                            <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-                                <div class="form-group">
-                                    <label>Label / Nama</label>
-                                    <input type="text" id="addrLabel" placeholder="Cth: Wallet Utama" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Network / Metode</label>
-                                    <select id="addrNetwork" required>
-                                        <option value="">Pilih...</option>
-                                        <option value="BTC">Bitcoin</option>
-                                        <option value="ETH">Ethereum</option>
-                                        <option value="USDT">USDT (TRC20)</option>
-                                        <option value="BNB">BNB</option>
-                                        <option value="BANK">Bank</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Alamat Wallet / No. Rekening</label>
-                                <input type="text" id="addrValue" placeholder="Masukkan alamat lengkap" required>
-                            </div>
-                            <button type="submit" class="btn btn-blue btn-block">💾 Simpan Alamat</button>
-                        </form>
-                    </div>
-                </div>
-            `;
-        }
-
-        function getSavedAddresses(user) {
-            const key = 'saved_addresses_' + user.id;
-            try { return JSON.parse(localStorage.getItem(key)) || '[]'); } catch(e) { return []; }
-        }
-
-        function saveAddress(user, addressData) {
-            const key = 'saved_addresses_' + user.id;
-            const addresses = getSavedAddresses(user);
-            addresses.push({ ...addressData, id: generateId(), createdAt: new Date().toISOString() });
-            localStorage.setItem(key, JSON.stringify(addresses));
-        }
-
-        function deleteAddress(user, addressId) {
-            const key = 'saved_addresses_' + user.id;
-            let addresses = getSavedAddresses(user);
-            addresses = addresses.filter(a => a.id !== addressId);
-            localStorage.setItem(key, JSON.stringify(addresses));
-        }
-
-        function renderSavedAddresses(user) {
-            const addresses = getSavedAddresses(user);
-            if (addresses.length === 0) {
-                return `<div class="empty-state"><div class="empty-icon">📍</div><p>Belum ada alamat tersimpan</p></div>`;
-            }
-            return addresses.map(a => `
-                <div style="display:flex;align-items:center;justify-content:space-between;background:var(--bg-primary);padding:12px;border-radius:8px;margin-bottom:8px;">
-                    <div>
-                        <strong>${a.label}</strong>
-                        <span class="badge badge-info" style="margin-left:8px;">${a.network}</span>
-                        <br><span style="font-family:monospace;font-size:12px;color:var(--text-secondary);">${a.value}</span>
-                    </div>
-                    <div>
-                        <button class="btn btn-sm btn-outline" onclick="copyToClipboard('${a.value}')">📋</button>
-                        <button class="btn btn-sm btn-outline" onclick="deleteAddressAndRefresh('${a.id}')" style="color:var(--red);">🗑</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function handleAddWithdrawalAddress(e) {
-            e.preventDefault();
-            const user = getCurrentUser();
-            if (!user) return;
-            const label = document.getElementById('addrLabel').value.trim();
-            const network = document.getElementById('addrNetwork').value;
-            const value = document.getElementById('addrValue').value.trim();
-            saveAddress(user, { label, network, value });
-            document.getElementById('addAddressForm').reset();
-            showToast('Alamat berhasil disimpan!', 'success');
-            document.getElementById('savedAddressesList').innerHTML = renderSavedAddresses(user);
-        }
-
-        function deleteAddressAndRefresh(addressId) {
-            const user = getCurrentUser();
-            if (!user) return;
-            deleteAddress(user, addressId);
-            document.getElementById('savedAddressesList').innerHTML = renderSavedAddresses(user);
-            showToast('Alamat berhasil dihapus.', 'info');
-        }
-
-        // ==================== DAILY PROFIT PAGE ====================
-        function renderProfitPage(user) {
-            const dailyRate = 0.9;
-            const totalBalance = user.balance + user.profitBalance;
-            const todayProfit = calculateDailyProfit(user);
-
-            return `
-                <div class="page-header">
-                    <h2>📈 Keuntungan Harian 0,9%</h2>
-                    <p>Dapatkan keuntungan otomatis setiap hari dari total deposit</p>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card green">
-                        <div class="stat-icon">📈</div>
-                        <div class="stat-label">Total Keuntungan</div>
-                        <div class="stat-value">${formatCurrency(user.profitBalance)}</div>
-                        <div class="stat-sub">Akumulasi keuntungan harian</div>
-                    </div>
-                    <div class="stat-card gold">
-                        <div class="stat-icon">⚡</div>
-                        <div class="stat-label">Keuntungan Hari Ini</div>
-                        <div class="stat-value">${formatCurrency(todayProfit)}</div>
-                        <div class="stat-sub">0,9% × Total Deposit</div>
-                    </div>
-                    <div class="stat-card blue">
-                        <div class="stat-icon">📊</div>
-                        <div class="stat-label">Total Deposit</div>
-                        <div class="stat-value">${formatCurrency(user.totalDeposit)}</div>
-                        <div class="stat-sub">Dasar perhitungan profit</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-label">Estimasi Profit / Hari</div>
-                        <div class="stat-value" style="color:var(--green)">${formatCurrency(user.totalDeposit * 0.009)}</div>
-                        <div class="stat-sub">Dari total deposit Anda</div>
-                    </div>
-                </div>
-
-                <div class="form-card" style="max-width:100%;">
-                    <h3>📐 Cara Kerja Keuntungan Harian</h3>
-                    <div style="display:grid;gap:16px;">
-                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
-                            <strong style="color:var(--gold)">💰 Rate Keuntungan: 0,9% per hari</strong>
-                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
-                                Keuntungan dihitung dari <strong>total deposit</strong> Anda. Semakin besar deposit, semakin besar keuntungan harian.
-                            </p>
-                        </div>
-                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
-                            <strong style="color:var(--gold)">🔄 Update Otomatis</strong>
-                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
-                                Keuntungan ditambahkan otomatis ke <strong>Saldo Keuntungan</strong> setiap hari.
-                            </p>
-                        </div>
-                        <div style="background:var(--bg-primary);padding:16px;border-radius:8px;">
-                            <strong style="color:var(--gold)">💡 Contoh Perhitungan</strong>
-                            <p style="color:var(--text-secondary);font-size:13px;margin-top:4px;">
-                                Deposit $1.000 → Keuntungan harian = $1.000 × 0,9% = <strong>$9/hari</strong><br>
-                                Dalam 30 hari → <strong>$270 keuntungan</strong>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div style="margin-top:24px;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:16px;">
-                        <strong style="color:var(--blue-accent)">💡 Tips Maksimalkan Keuntungan</strong>
-                        <ul style="color:var(--text-secondary);font-size:13px;margin-top:8px;padding-left:20px;">
-                            <li>Lakukan deposit lebih besar untuk keuntungan harian lebih tinggi</li>
-                            <li>Keuntungan bisa ditarik kapan saja</li>
-                            <li>Gunakan fitur referral untuk tambahan komisi 15%</li>
-                        </ul>
-                    </div>
-                </div>
-            `;
-        }
-
-        // ==================== REFERRAL PAGE ====================
-        function renderReferralPage(user) {
-            const referralLink = window.location.origin + window.location.pathname + '?ref=' + user.referralCode + '&mode=register';
-            const users = getDB(DB_KEYS.USERS);
-            const referrals = users.filter(u => u.referredBy === user.referralCode);
-
-            return `
-                <div class="page-header">
-                    <h2>👥 Komisi Undang Teman 15%</h2>
-                    <p>Ajak teman berinvestasi dan dapatkan komisi 15% dari setiap deposit mereka</p>
-                </div>
-
-                <div class="stats-grid">
-                    <div class="stat-card gold">
-                        <div class="stat-icon">💎</div>
-                        <div class="stat-label">Total Komisi</div>
-                        <div class="stat-value">${formatCurrency(user.referralEarnings)}</div>
-                        <div class="stat-sub">15% dari deposit referral</div>
-                    </div>
-                    <div class="stat-card blue">
-                        <div class
+        init();
+    </script>
+</body>
+</html>
+```
