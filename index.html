@@ -1,190 +1,27 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>InvestPro - Dashboard Investasi</title>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InvestPro - Deposit Crypto</title>
 <style>
-:root{--bg:#f0f2f5;--card-bg:#fff;--text:#1a1a2e;--text-secondary:#6b7280;--primary:#2563eb;--primary-light:#dbeafe;--success:#10b981;--danger:#ef4444;--border:#e5e7eb;--sidebar-bg:#1e293b;--sidebar-text:#cbd5e1;--shadow:0 1px 3px rgba(0,0,0,0.08);--radius:12px}
-.dark-mode{--bg:#0f172a;--card-bg:#1e293b;--text:#e2e8f0;--text-secondary:#94a3b8;--border:#334155}
+:root{--bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--sec:#6b7280;--primary:#2563eb;--primary-light:#dbeafe;--success:#10b981;--danger:#ef4444;--border:#e5e7eb;--sidebar:#1e293b;--sidebar-text:#cbd5e1;--shadow:0 1px 3px rgba(0,0,0,0.08);--radius:12px}
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
-.sidebar{width:250px;background:var(--sidebar-bg);color:var(--sidebar-text);padding:24px 0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100}
-.sidebar-logo{padding:0 24px 24px;font-size:1.5rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:10px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+.sidebar{width:260px;background:var(--sidebar);color:var(--sidebar-text);padding:24px 0;display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0}
+.sidebar-logo{padding:0 24px 24px;font-size:1.5rem;font-weight:800;color:#fff;display:flex;gap:10px;align-items:center}
 .sidebar-logo span{background:var(--primary);width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center}
-.sidebar-nav{flex:1;display:flex;flex-direction:column;gap:4px;padding:0 12px}
-.sidebar-nav a{color:var(--sidebar-text);text-decoration:none;padding:12px 16px;border-radius:8px;display:flex;align-items:center;gap:12px;font-size:0.9rem;cursor:pointer}
+.sidebar-nav{flex:1;padding:0 12px;display:flex;flex-direction:column;gap:4px}
+.sidebar-nav a{color:var(--sidebar-text);text-decoration:none;padding:12px 16px;border-radius:8px;display:flex;gap:12px;cursor:pointer;font-size:0.9rem}
 .sidebar-nav a.active{background:rgba(59,130,246,0.2);color:#60a5fa}
-.main{margin-left:250px;flex:1;padding:24px 32px;max-width:calc(100vw - 250px)}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:10px}
-.btn{padding:10px 18px;border-radius:8px;border:none;font-weight:600;cursor:pointer}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-outline{background:transparent;border:2px solid var(--border);color:var(--text)}
-.btn-sm{padding:6px 12px;font-size:0.8rem}
+.main{margin-left:260px;flex:1;padding:24px 32px}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.btn{padding:10px 18px;border-radius:8px;border:none;font-weight:600;cursor:pointer;display:inline-flex;gap:6px}
+.btn-primary{background:var(--primary);color:#fff} .btn-outline{border:2px solid var(--border);background:transparent}
+.btn-sm{padding:6px 12px;font-size:0.8rem} .btn-danger{background:var(--danger);color:#fff} .btn-success{background:var(--success);color:#fff}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px}
-.stat-card{background:var(--card-bg);border-radius:var(--radius);padding:20px 24px;box-shadow:var(--shadow)}
-.stat-card.label{font-size:0.8rem;color:var(--text-secondary);text-transform:uppercase;margin-bottom:6px}
-.stat-card.value{font-size:1.6rem;font-weight:800}
-.table-container{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px;overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:600px}
-th{text-align:left;padding:14px 20px;font-size:0.78rem;color:var(--text-secondary);background:var(--bg);border-bottom:1px solid var(--border)}
+.stat-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.stat-card .label{font-size:0.8rem;color:var(--sec);text-transform:uppercase;margin-bottom:6px} .stat-card .value{font-size:1.5rem;font-weight:800}
+.table-container{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px}
+table{width:100%;border-collapse:collapse} th{padding:14px 20px;font-size:0.78rem;color:var(--sec);background:var(--bg);border-bottom:1px solid var(--border);text-align:left}
 td{padding:14px 20px;font-size:0.9rem;border-bottom:1px solid var(--border)}
-.calculator{background:var(--card-bg);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px}
-.form-group{margin-bottom:16px}
-.form-group label{display:block;font-size:0.85rem;font-weight:600;margin-bottom:6px;color:var(--text-secondary)}
-.form-group input,.form-group select{width:100%;padding:12px 14px;border:2px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text)}
-.calc-result{background:var(--primary-light);padding:16px;border-radius:8px;margin-top:16px;font-weight:700}
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:1000}
-.modal{background:var(--card-bg);border-radius:var(--radius);padding:28px;width:420px;max-width:95vw}
-.hidden{display:none!important}
-@media(max-width:768px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0;max-width:100vw}.stats-grid{grid-template-columns:1fr 1fr}}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-@media(max-width:768px){.two-col{grid-template-columns:1fr}}
-</style>
-</head>
-<body>
-<aside class="sidebar" id="sidebar">
-<div class="sidebar-logo"><span>📈</span> InvestPro</div>
-<nav class="sidebar-nav">
-<a class="active" onclick="showPage('dashboard',this)">📊 Dashboard</a>
-<a onclick="showPage('market',this)">📈 Pasar</a>
-<a onclick="showPage('portfolio',this)">💼 Portofolio</a>
-<a onclick="showPage('calculator',this)">🧮 Kalkulator</a>
-<a onclick="showPage('history',this)">📋 Riwayat</a>
-</nav>
-</aside>
-<main class="main">
-<header class="header">
-<h1 id="pageTitle">📊 Dashboard</h1>
-<div style="display:flex;gap:8px">
-<button class="btn btn-outline btn-sm" onclick="toggleDarkMode()">🌙</button>
-<button class="btn btn-primary" onclick="openTradeModal()">+ Transaksi</button>
-</div>
-</header>
-<div id="page-dashboard">
-<div class="stats-grid">
-<div class="stat-card"><div class="label">Total Aset</div><div class="value" id="totalAsset">Rp 0</div><div id="totalChange" style="color:#10b981">+0%</div></div>
-<div class="stat-card"><div class="label">Investasi</div><div class="value" id="totalInvested">Rp 0</div></div>
-<div class="stat-card"><div class="label">Profit/Loss</div><div class="value" id="totalPnL">Rp 0</div><div id="pnlPercent">0%</div></div>
-<div class="stat-card"><div class="label">Aset Aktif</div><div class="value" id="activeAssets">0</div></div>
-</div>
-<div class="table-container"><table><thead><tr><th>Aset</th><th>Tipe</th><th>Jumlah</th><th>Harga Beli</th><th>Harga Saat Ini</th><th>Profit/Loss</th><th>Aksi</th></tr></thead><tbody id="dashboardTableBody"></tbody></table></div>
-</div>
-<div id="page-market" class="hidden"><div class="table-container"><table><thead><tr><th>Simbol</th><th>Nama</th><th>Tipe</th><th>Harga</th><th>24j</th><th>Aksi</th></tr></thead><tbody id="marketTableBody"></tbody></table></div></div>
-<div id="page-portfolio" class="hidden"><div class="table-container"><table><thead><tr><th>Aset</th><th>Tipe</th><th>Jumlah</th><th>Avg</th><th>Nilai</th><th>P/L</th><th>%</th><th>Aksi</th></tr></thead><tbody id="portfolioTableBody"></tbody></table></div></div>
-<div id="page-calculator" class="hidden">
-<div class="two-col">
-<div class="calculator">
-<h3>🧮 Kalkulator Return</h3>
-<div class="form-group"><label>Investasi Awal (Rp)</label><input type="number" id="calcPrincipal" value="10000000"></div>
-<div class="form-group"><label>Return Tahunan (%)</label><input type="number" id="calcRate" value="10"></div>
-<div class="form-group"><label>Jangka Waktu (Tahun)</label><input type="number" id="calcYears" value="5"></div>
-<div class="form-group"><label>Tambahan per Bulan (Rp)</label><input type="number" id="calcMonthly" value="0"></div>
-<button class="btn btn-primary" onclick="calculateReturn()" style="width:100%">Hitung</button>
-<div class="calc-result" id="calcResult">Hasil akan tampil di sini...</div>
-</div>
-<div class="calculator"><h3>📊 Proyeksi</h3><canvas id="projectionChart" width="400" height="300" style="width:100%"></canvas></div>
-</div>
-</div>
-<div id="page-history" class="hidden"><div class="table-container"><table><thead><tr><th>Tanggal</th><th>Tipe</th><th>Aset</th><th>Jumlah</th><th>Harga</th><th>Total</th></tr></thead><tbody id="historyTableBody"></tbody></table></div></div>
-</main>
-<div class="modal-overlay hidden" id="tradeModal">
-<div class="modal">
-<h3>Transaksi Baru</h3>
-<div class="form-group"><label>Tipe</label><select id="tradeType"><option value="buy">Beli</option><option value="sell">Jual</option></select></div>
-<div class="form-group"><label>Aset</label><select id="tradeAsset"></select></div>
-<div class="form-group"><label>Jumlah</label><input type="number" id="tradeQty" value="1"></div>
-<div class="form-group"><label>Harga</label><input type="number" id="tradePrice"></div>
-<p id="tradeTotal" style="font-weight:700">Total: Rp 0</p>
-<p id="tradeError" style="color:red;font-size:13px"></p>
-<div style="display:flex;gap:8px"><button class="btn btn-primary" style="flex:1" onclick="executeTrade()">Konfirmasi</button><button class="btn btn-outline" onclick="closeTradeModal()">Batal</button></div>
-</div>
-</div>
-<script>
-const marketAssets=[{symbol:'BBCA',name:'Bank Central Asia',type:'Saham',price:10250,change:1.2,wallet:''},
-{symbol:'BTC',name:'Bitcoin',type:'Kripto',price:985000000,change:3.4,wallet:'bc1q_ALAMAT_BTC_BOS_DISINI'},
-{symbol:'ETH',name:'Ethereum',type:'Kripto',price:52000000,change:-2.1,wallet:'0x_ALAMAT_ETH_BOS_DISINI'},
-{symbol:'USDT',name:'Tether TRC20',type:'Kripto',price:16500,change:0.1,wallet:'T_ALAMAT_USDT_BOS_DISINI'},
-{symbol:'EMAS',name:'Emas Antam',type:'Komoditas',price:1105000,change:0.8,wallet:''}
-let portfolio=JSON.parse(localStorage.getItem('investPortfolio')||'[]');
-let history=JSON.parse(localStorage.getItem('investHistory')||'[]');
-let cashBalance=parseFloat(localStorage.getItem('investCash')||'50000000');
-function saveData(){localStorage.setItem('investPortfolio',JSON.stringify(portfolio));localStorage.setItem('investHistory',JSON.stringify(history));localStorage.setItem('investCash',cashBalance.toString());}
-function renderAll(){renderDashboard();renderMarket();renderPortfolio();renderHistory();updateStats();}
-function updateStats(){
-let totalCost=portfolio.reduce((s,p)=>s+p.quantity*p.avgPrice,0);
-let currentValue=portfolio.reduce((s,p)=>{let a=marketAssets.find(x=>x.symbol===p.symbol);return s+(a?p.quantity*a.price:0)},0);
-let totalPorto=currentValue+cashBalance;
-let initial=parseFloat(localStorage.getItem('investInitialCash')||'50000000');
-let pnl=totalPorto-initial;
-let pct=initial>0?pnl/initial*100:0;
-document.getElementById('totalAsset').textContent='Rp '+totalPorto.toLocaleString('id-ID');
-document.getElementById('totalInvested').textContent='Rp '+totalCost.toLocaleString('id-ID');
-document.getElementById('totalPnL').textContent='Rp '+pnl.toLocaleString('id-ID');
-document.getElementById('pnlPercent').textContent=pct.toFixed(2)+'%';
-document.getElementById('totalChange').textContent=pct.toFixed(2)+'%';
-document.getElementById('activeAssets').textContent=portfolio.length;
-}
-function renderDashboard(){
-let tbody=document.getElementById('dashboardTableBody');
-if(portfolio.length===0){tbody.innerHTML='<tr><td colspan=7 style="text-align:center;padding:40px">Belum ada data</td></tr>';return;}
-tbody.innerHTML=portfolio.map(p=>{let a=marketAssets.find(x=>x.symbol===p.symbol);let cur=a?a.price:p.avgPrice;let pnl=(cur-p.avgPrice)*p.quantity;return `<tr><td><b>${p.symbol}</b></td><td>${a?a.type:'-'}</td><td>${p.quantity}</td><td>Rp ${p.avgPrice.toLocaleString()}</td><td>Rp ${cur.toLocaleString()}</td><td style="color:${pnl>=0?'#10b981':'#ef4444'}">${pnl.toLocaleString()}</td><td><button class="btn btn-sm" style="background:#ef4444;color:#fff" onclick="sellAsset('${p.symbol}')">Jual</button></td></tr>`}).join('');
-}
-function renderMarket(){document.getElementById('marketTableBody').innerHTML=marketAssets.map(a=>`<tr><td><b>${a.symbol}</b></td><td>${a.name}</td><td>${a.type}</td><td>Rp ${Math.round(a.price).toLocaleString()}</td><td style="color:${a.change>=0?'#10b981':'#ef4444'}">${a.change.toFixed(2)}%</td><td><button class="btn btn-sm btn-primary" onclick="quickBuy('${a.symbol}',${Math.round(a.price)})">Beli</button></td></tr>`).join('');}
-function renderPortfolio(){
-let tbody=document.getElementById('portfolioTableBody');
-if(portfolio.length===0){tbody.innerHTML='<tr><td colspan=8 style="text-align:center;padding:40px">Kosong</td></tr>';return;}
-tbody.innerHTML=portfolio.map(p=>{let a=marketAssets.find(x=>x.symbol===p.symbol);let cur=a?a.price:p.avgPrice;let val=cur*p.quantity;let pnl=(cur-p.avgPrice)*p.quantity;let pct=p.avgPrice>0?(cur-p.avgPrice)/p.avgPrice*100:0;return `<tr><td><b>${p.symbol}</b></td><td>${a?a.type:'-'}</td><td>${p.quantity}</td><td>Rp ${p.avgPrice.toLocaleString()}</td><td>Rp ${val.toLocaleString()}</td><td style="color:${pnl>=0?'#10b981':'#ef4444'}">${pnl.toLocaleString()}</td><td>${pct.toFixed(2)}%</td><td><button class="btn btn-sm" style="background:#ef4444;color:#fff" onclick="sellAsset('${p.symbol}')">Jual</button></td></tr>`}).join('');
-}
-function renderHistory(){
-let tbody=document.getElementById('historyTableBody');
-if(history.length===0){tbody.innerHTML='<tr><td colspan=6 style="text-align:center;padding:40px">Belum ada transaksi</td></tr>';return;}
-tbody.innerHTML=[...history].reverse().map(h=>`<tr><td>${h.date}</td><td>${h.type}</td><td><b>${h.symbol}</b></td><td>${h.quantity}</td><td>Rp ${h.price.toLocaleString()}</td><td>Rp ${h.total.toLocaleString()}</td></tr>`).join('');
-}
-function quickBuy(symbol,price){document.getElementById('tradeType').value='buy';populate();document.getElementById('tradeAsset').value=symbol;document.getElementById('tradePrice').value=price;document.getElementById('tradeQty').value=1;updateTotal();document.getElementById('tradeModal').classList.remove('hidden');}
-function sellAsset(symbol){document.getElementById('tradeType').value='sell';populate();document.getElementById('tradeAsset').value=symbol;let p=portfolio.find(x=>x.symbol===symbol);let a=marketAssets.find(x=>x.symbol===symbol);document.getElementById('tradePrice').value=a?Math.round(a.price):p.avgPrice;document.getElementById('tradeQty').value=p?p.quantity:1;updateTotal();document.getElementById('tradeModal').classList.remove('hidden');}
-function openTradeModal(){document.getElementById('tradeType').value='buy';populate();document.getElementById('tradeAsset').value=marketAssets[0].symbol;document.getElementById('tradePrice').value=Math.round(marketAssets[0].price);document.getElementById('tradeQty').value=1;updateTotal();document.getElementById('tradeModal').classList.remove('hidden');}
-function closeTradeModal(){document.getElementById('tradeModal').classList.add('hidden');}
-function populate(){
-let sel=document.getElementById('tradeAsset');let type=document.getElementById('tradeType').value;
-if(type==='sell'){sel.innerHTML=portfolio.map(p=>`<option value="${p.symbol}">${p.symbol} (Qty:${p.quantity})</option>`).join('');if(portfolio.length===0)sel.innerHTML='<option>Tidak ada aset</option>';}else{sel.innerHTML=marketAssets.map(a=>`<option value="${a.symbol}">${a.symbol} - ${a.name}</option>`).join('');}
-}
-document.getElementById('tradeType').addEventListener('change',()=>{populate();updateTotal();});
-document.getElementById('tradeQty').addEventListener('input',updateTotal);
-document.getElementById('tradePrice').addEventListener('input',updateTotal);
-function updateTotal(){let q=parseInt(document.getElementById('tradeQty').value)||0;let pr=parseFloat(document.getElementById('tradePrice').value)||0;document.getElementById('tradeTotal').textContent='Total: Rp '+(q*pr).toLocaleString('id-ID');}
-function executeTrade(){
-let type=document.getElementById('tradeType').value;let symbol=document.getElementById('tradeAsset').value;let qty=parseInt(document.getElementById('tradeQty').value);let price=parseFloat(document.getElementById('tradePrice').value);let total=qty*price;
-if(!symbol||qty<=0||price<=0){document.getElementById('tradeError').textContent='Isi data dengan benar';return;}
-if(type==='buy'){if(total>cashBalance){document.getElementById('tradeError').textContent='Saldo tidak cukup! Saldo: Rp '+cashBalance.toLocaleString();return;}cashBalance-=total;let ex=portfolio.find(p=>p.symbol===symbol);if(ex){let newQty=ex.quantity+qty;ex.avgPrice=((ex.avgPrice*ex.quantity)+total)/newQty;ex.quantity=newQty;}else{portfolio.push({symbol,quantity:qty,avgPrice:price});}}
-else{let ex=portfolio.find(p=>p.symbol===symbol);if(!ex||ex.quantity<qty){document.getElementById('tradeError').textContent='Jumlah tidak cukup';return;}cashBalance+=total;ex.quantity-=qty;if(ex.quantity<=0)portfolio=portfolio.filter(p=>p.symbol!==symbol);}
-history.push({date:new Date().toLocaleString('id-ID'),type,symbol,quantity:qty,price,total});saveData();renderAll();closeTradeModal();
-}
-function calculateReturn(){
-let principal=parseFloat(document.getElementById('calcPrincipal').value)||0;let rate=parseFloat(document.getElementById('calcRate').value)||0;let years=parseInt(document.getElementById('calcYears').value)||0;let monthly=parseFloat(document.getElementById('calcMonthly').value)||0;
-let monthlyRate=rate/100/12;let months=years*12;
-let futureValue=principal*Math.pow(1+monthlyRate,months);
-if(monthlyRate>0&&monthly>0){futureValue+=monthly*((Math.pow(1+monthlyRate,months)-1)/monthlyRate);}else{futureValue+=monthly*months;}
-let totalInvested=principal+(monthly*months);let profit=futureValue-totalInvested;let roi=totalInvested>0?profit/totalInvested*100:0;
-document.getElementById('calcResult').innerHTML=`<p>Nilai Akhir: Rp ${Math.round(futureValue).toLocaleString('id-ID')}</p><p>Total Modal: Rp ${Math.round(totalInvested).toLocaleString('id-ID')}</p><p style="color:${profit>=0?'#10b981':'#ef4444'}">Keuntungan: Rp ${Math.round(profit).toLocaleString('id-ID')} (${roi.toFixed(2)}%)</p>`;
-drawChart(principal,monthly,monthlyRate,months);
-}
-function drawChart(principal,monthly,monthlyRate,months){
-let canvas=document.getElementById('projectionChart');let ctx=canvas.getContext('2d');let w=canvas.width;let h=canvas.height;ctx.clearRect(0,0,w,h);
-let points=[];let val=principal;let step=Math.max(1,Math.floor(months/20));for(let i=0;i<=months;i+=step){points.push(val);val=val*(1+monthlyRate)+monthly;}
-let maxVal=Math.max(...points,1);let padding=40;let chartW=w-padding*2;let chartH=h-padding*2;
-ctx.strokeStyle='#e5e7eb';for(let i=0;i<=4;i++){let y=padding+(chartH/4)*i;ctx.beginPath();ctx.moveTo(padding,y);ctx.lineTo(w-padding,y);ctx.stroke();}
-ctx.strokeStyle='#2563eb';ctx.lineWidth=3;ctx.beginPath();points.forEach((v,i)=>{let x=padding+(i/(points.length-1))*chartW;let y=padding+chartH-(v/maxVal)*chartH;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);});ctx.stroke();
-}
-function showPage(page,link){
-document.querySelectorAll('.sidebar-nav a').forEach(a=>a.classList.remove('active'));if(link)link.classList.add('active');
-document.querySelectorAll('[id^="page-"]').forEach(el=>el.classList.add('hidden'));
-document.getElementById('page-'+page).classList.remove('hidden');
-document.getElementById('pageTitle').textContent={dashboard:'📊 Dashboard',market:'📈 Pasar',portfolio:'💼 Portofolio',calculator:'🧮 Kalkulator',history:'📋 Riwayat'}[page];
-}
-function toggleDarkMode(){document.body.classList.toggle('dark-mode');}
-if(!localStorage.getItem('investInitialCash'))localStorage.setItem('investInitialCash',cashBalance.toString());
-renderAll();populate();
-</script>
-</body>
-</html>
+.badge{padding:4px 10px;border
