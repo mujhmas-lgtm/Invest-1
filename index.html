@@ -1,57 +1,40 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CHAINVEST PRO - Invest Platform</title>
+<meta name="google" content="notranslate">
+<title>CHAINVEST PRO</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-body{background:#0f172a;color:#fff;padding-bottom:80px}
-.page{display:none;min-height:100vh;padding:20px}
-.page.active{display:flex;align-items:center;justify-content:center}
-.box{background:#1e293b;padding:22px;border-radius:16px;width:100%;max-width:380px;border:1px solid #334155}
-.box h1{color:#38bdf8;text-align:center;margin-bottom:6px}
-.box p.sub{color:#94a3b8;text-align:center;font-size:13px;margin-bottom:16px}
-input,select{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#fff}
-button.btn{width:100%;padding:12px;border-radius:8px;border:none;font-weight:bold;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#0f172a;color:#fff;min-height:100vh}
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:#1e293b;padding:24px;border-radius:16px;width:100%;max-width:360px;border:1px solid #334155}
+.box h1{color:#38bdf8;text-align:center}
+input{width:100%;padding:14px;margin:8px 0;border-radius:10px;border:1px solid #334155;background:#0f172a;color:#fff;font-size:16px}
+.btn{width:100%;padding:16px;border-radius:10px;border:none;font-weight:bold;font-size:16px;margin-top:12px}
 .btn-blue{background:#0ea5e9;color:#fff}
-.btn-green{background:#22c55e;color:#fff}
-.btn-red{background:#ef4444;color:#fff}
-.btn-gray{background:#334155;color:#fff}
-.small{font-size:12px;color:#94a3b8;text-align:center;margin-top:10px}
-a.link{color:#38bdf8;text-decoration:none}
-.header{background:#1e293b;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.saldo{background:linear-gradient(135deg,#0ea5e9,#6366f1);margin:16px;border-radius:16px;padding:18px}
-.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
-.card{background:#1e293b;border:1px solid #334155;padding:14px;border-radius:12px;text-align:center}
-.stat{display:flex;justify-content:space-between;background:#1e293b;padding:12px 16px;margin:8px 16px;border-radius:10px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1e293b;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:8px 0;border-top:1px solid #334155;z-index:10}
-.bottom-nav div{text-align:center;font-size:10px;color:#94a3b8}
-.bottom-nav div.active{color:#38bdf8}
-.bottom-nav span{font-size:18px;display:block}
-.badge{padding:2px 8px;border-radius:20px;font-size:11px}
-.badge-pending{background:#eab308;color:#000}
-.badge-ok{background:#22c55e}
+.btn:active{transform:scale(0.97)}
+.small{font-size:13px;color:#94a3b8;text-align:center;margin-top:10px}
+#app{display:none}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div id="page-login" class="page active">
+<div id="pageLogin" class="page">
 <div class="box">
 <h1>CHAINVEST PRO</h1>
-<p class="sub">Investasi Cerdas Profit Harian</p>
-<input id="l_user" placeholder="Username">
-<input id="l_pass" type="password" placeholder="Password">
-<button class="btn btn-blue" onclick="doLogin()">LOGIN</button>
-<p class="small">Belum punya akun? <a class="link" onclick="showPage('register')">Daftar di sini</a></p>
-<p class="small" style="margin-top:12px">Demo: admin / 123456</p>
+<p style="text-align:center;color:#94a3b8;font-size:13px;margin:8px 0 16px">Login dulu bos</p>
+<form onsubmit="doLogin();return false;">
+<input id="u" placeholder="Username" value="admin" required>
+<input id="p" type="password" placeholder="Password" value="123456" required>
+<button type="submit" class="btn btn-blue" style="cursor:pointer">LOGIN - KLIK DISINI</button>
+</form>
+<p class="small">Tap tombol biru di atas bos!</p>
+<p class="small">Demo: admin / 123456</p>
+<p class="small"><a onclick="doRegisterDirect()" style="color:#38bdf8">Daftar akun baru</a></p>
 </div>
 </div>
 
-<!-- REGISTER -->
-<div id="page-register" class="page">
-<div class="box">
-<h1>DAFTAR AKUN</h1>
-<p class="sub">Dapat
+<div id="app">
+<div style="background:#1e293b;padding:16px;text-align:center"><h2 style="color:#38bdf8">CHAINVEST INVEST
