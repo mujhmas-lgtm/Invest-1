@@ -3,41 +3,55 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chainvest - Invest Platform</title>
+<title>CHAINVEST PRO - Invest Platform</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
-body{background:#0f172a;color:white;min-height:100vh}
-.header{background:#1e293b;padding:16px;text-align:center;position:sticky;top:0}
-.header h1{color:#38bdf8;font-size:22px}
-.saldo{background:linear-gradient(135deg,#0ea5e9,#6366f1);margin:16px;border-radius:16px;padding:20px}
-.saldo p{opacity:0.8;font-size:14px}
-.saldo h2{font-size:28px;margin:8px 0}
-.menu{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 16px}
-.card{background:#1e293b;padding:16px;border-radius:12px;text-align:center}
-.card h3{color:#38bdf8;margin-bottom:8px}
-.btn{background:#0ea5e9;color:white;border:none;padding:10px 20px;border-radius:8px;width:100%;margin-top:8px;font-weight:bold}
-.porto{padding:16px}
-.item{background:#1e293b;margin-top:10px;padding:12px;border-radius:10px;display:flex;justify-content:space-between}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+body{background:#0f172a;color:#fff;padding-bottom:80px}
+.page{display:none;min-height:100vh;padding:20px}
+.page.active{display:flex;align-items:center;justify-content:center}
+.box{background:#1e293b;padding:22px;border-radius:16px;width:100%;max-width:380px;border:1px solid #334155}
+.box h1{color:#38bdf8;text-align:center;margin-bottom:6px}
+.box p.sub{color:#94a3b8;text-align:center;font-size:13px;margin-bottom:16px}
+input,select{width:100%;padding:12px;margin:7px 0;border-radius:8px;border:1px solid #334155;background:#0f172a;color:#fff}
+button.btn{width:100%;padding:12px;border-radius:8px;border:none;font-weight:bold;margin-top:10px}
+.btn-blue{background:#0ea5e9;color:#fff}
+.btn-green{background:#22c55e;color:#fff}
+.btn-red{background:#ef4444;color:#fff}
+.btn-gray{background:#334155;color:#fff}
+.small{font-size:12px;color:#94a3b8;text-align:center;margin-top:10px}
+a.link{color:#38bdf8;text-decoration:none}
+.header{background:#1e293b;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.saldo{background:linear-gradient(135deg,#0ea5e9,#6366f1);margin:16px;border-radius:16px;padding:18px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;padding:0 16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px}
+.card{background:#1e293b;border:1px solid #334155;padding:14px;border-radius:12px;text-align:center}
+.stat{display:flex;justify-content:space-between;background:#1e293b;padding:12px 16px;margin:8px 16px;border-radius:10px}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1e293b;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;padding:8px 0;border-top:1px solid #334155;z-index:10}
+.bottom-nav div{text-align:center;font-size:10px;color:#94a3b8}
+.bottom-nav div.active{color:#38bdf8}
+.bottom-nav span{font-size:18px;display:block}
+.badge{padding:2px 8px;border-radius:20px;font-size:11px}
+.badge-pending{background:#eab308;color:#000}
+.badge-ok{background:#22c55e}
 </style>
 </head>
 <body>
-<div class="header"><h1>CHAINVEST INVEST</h1></div>
-<div class="saldo">
-<p>Total Aset Investasi</p>
-<h2>Rp 12.500.000</h2>
-<p>+12.5% bulan ini 🚀</p>
+
+<!-- LOGIN -->
+<div id="page-login" class="page active">
+<div class="box">
+<h1>CHAINVEST PRO</h1>
+<p class="sub">Investasi Cerdas Profit Harian</p>
+<input id="l_user" placeholder="Username">
+<input id="l_pass" type="password" placeholder="Password">
+<button class="btn btn-blue" onclick="doLogin()">LOGIN</button>
+<p class="small">Belum punya akun? <a class="link" onclick="showPage('register')">Daftar di sini</a></p>
+<p class="small" style="margin-top:12px">Demo: admin / 123456</p>
 </div>
-<div class="menu">
-<div class="card"><h3>Bitcoin</h3><p>BTC</p><button class="btn">Invest</button></div>
-<div class="card"><h3>Ethereum</h3><p>ETH</p><button class="btn">Invest</button></div>
-<div class="card"><h3>Gold</h3><p>XAU</p><button class="btn">Invest</button></div>
-<div class="card"><h3>Saham</h3><p>US Stock</p><button class="btn">Invest</button></div>
 </div>
-<div class="porto">
-<h3>Portofolio Saya</h3>
-<div class="item"><span>BTC - 0.05</span><span style="color:#22c55e">+5.2%</span></div>
-<div class="item"><span>ETH - 1.2</span><span style="color:#22c55e">+8.1%</span></div>
-<div class="item"><span>Gold - 10gr</span><span style="color:#ef4444">-1.2%</span></div>
-</div>
-</body>
-</html>
+
+<!-- REGISTER -->
+<div id="page-register" class="page">
+<div class="box">
+<h1>DAFTAR AKUN</h1>
+<p class="sub">Dapat
