@@ -314,7 +314,7 @@ function renderLogin() {
   };
 }
 
-// ---------- DASHBOARD ----------
+// ---------- ChainVest.Pro ----------
 function renderDashboard() {
   applyDailyProfit();
   const u = currentUser();
@@ -330,7 +330,7 @@ function renderDashboard() {
     <div class="balance-box">
       <div class="label">TOTAL SALDO</div>
       <div class="amount">Usdt ${fmt(total)}</div>
-      <div style="font-size:12px;color:#c9c9e0;">Modal: Rp ${fmt(u.balance)} · Profit: Usdt ${fmt(u.profitBalance)}</div>
+      <div style="font-size:12px;color:#c9c9e0;">Modal: Usdt ${fmt(u.balance)} · Profit: Usdt ${fmt(u.profitBalance)}</div>
     </div>
     <div class="menu-grid">
       <div class="menu-card" id="m-deposit"><div class="icon">💵</div><div class="txt">3. Deposit</div></div>
