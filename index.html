@@ -442,7 +442,7 @@ function renderAlamatPenarikan() {
   const wrap = document.createElement('div');
   wrap.innerHTML = `
     <div class="header-row"><span class="back" id="back">←</span><h2 style="flex:1;text-align:center;">🏧 Penarikan</h2></div>
-    <div style="text-align:center;margin-bottom:12px;font-size:13px;color:#c9c9e0;">Saldo tersedia: <b style="color:#ffd700;">Usdt ${fmt(u.balance + u.profitBalance)}</b></div>
+    <div style="text-align:center;margin-bottom:12px;font-size:13px;color:#c9c9e0;">Saldo tersedia: <b style="color:#ffd700;">USDT ${fmt(u.balance + u.profitBalance)}</b></div>
     <div class="form-group"><label>Jumlah Penarikan (Rp)</label><input type="number" id="amount" min="10000" placeholder="Minimal USDT 3.00"></div>
     <div class="form-group"><label>Metode</label>
       <select id="method">
@@ -461,7 +461,7 @@ function renderAlamatPenarikan() {
     const method = wrap.querySelector('#method').value;
     const addr = wrap.querySelector('#addr').value.trim();
     const total = u.balance + u.profitBalance;
-    if (!amount || amount < 10000) return alert('Jumlah minimal USDT 3.00!');
+    if (!amount || amount < 10000) return alert('Jumlah minimal USDT 3.00');
     if (amount > total) return alert('Saldo tidak mencukupi!');
     if (!addr) return alert('Alamat tujuan wajib diisi!');
     // kurangi dari profit dulu, lalu modal
