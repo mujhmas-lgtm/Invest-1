@@ -314,7 +314,7 @@ function renderLogin() {
   };
 }
 
-// ---------- ChainVest.Pro ----------
+// ---------- DASHBOARD ----------
 function renderDashboard() {
   applyDailyProfit();
   const u = currentUser();
@@ -324,13 +324,13 @@ function renderDashboard() {
   wrap.innerHTML = `
     <div class="header-row">
       <span class="back" id="logout" title="Logout">🚪</span>
-      <h2 style="flex:1;text-align:center;">💰 ChainVest</h2>
+      <h2 style="flex:1;text-align:center;">💰 Dashboard</h2>
       <span class="user">👤 ${u.refCode}<br>ID: ${u.refCode}</span>
     </div>
     <div class="balance-box">
       <div class="label">TOTAL SALDO</div>
-      <div class="amount">Usdt ${fmt(total)}</div>
-      <div style="font-size:12px;color:#c9c9e0;">Modal: USDT ${fmt(u.balance)} · Profit: USDT ${fmt(u.profitBalance)}</div>
+      <div class="amount">Rp ${fmt(total)}</div>
+      <div style="font-size:12px;color:#c9c9e0;">Modal: Rp ${fmt(u.balance)} · Profit: Rp ${fmt(u.profitBalance)}</div>
     </div>
     <div class="menu-grid">
       <div class="menu-card" id="m-deposit"><div class="icon">💵</div><div class="txt">3. Deposit</div></div>
@@ -363,18 +363,18 @@ function renderDeposit() {
   const wrap = document.createElement('div');
   wrap.innerHTML = `
     <div class="header-row"><span class="back" id="back">←</span><h2 style="flex:1;text-align:center;">💵 Deposit</h2></div>
-    <div class="form-group"><label>Jumlah Deposit (USDT)</label><input type="number" id="amount" min="10000" placeholder="Minimal USDT 10.000"></div>
+    <div class="form-group"><label>Jumlah Deposit (Rp)</label><input type="number" id="amount" min="10000" placeholder="Minimal Rp 10.000"></div>
     <button class="btn" id="doDep">Setor Sekarang</button>
     <div class="info-box" style="margin-top:14px;">
       💡 Keuntungan <b>0.9% per hari</b> selama <b>30 hari</b>.<br>
-      Contoh: Deposit Usdt 55.22 → profit Usdt 0.50/hari.
+      Contoh: Deposit Rp 1.000.000 → profit Rp 9.000/hari.
     </div>
   `;
   show(wrap);
   wrap.querySelector('#back').onclick = backToDash;
   wrap.querySelector('#doDep').onclick = () => {
     const amount = parseFloat(wrap.querySelector('#amount').value);
-    if (!amount || amount < 10000) return alert('Jumlah minimal USDT 10.000!');
+    if (!amount || amount < 10000) return alert('Jumlah minimal Rp 10.000!');
     u.deposits.push({
       date: Date.now(),
       amount,
@@ -437,13 +437,13 @@ function renderAlamatDeposit() {
 }
 
 // ---------- 6. PENARIKAN ----------
-function renderAlamatPenarikan() {
+function renderWithdraw() {
   const u = currentUser();
   const wrap = document.createElement('div');
   wrap.innerHTML = `
     <div class="header-row"><span class="back" id="back">←</span><h2 style="flex:1;text-align:center;">🏧 Penarikan</h2></div>
-    <div style="text-align:center;margin-bottom:12px;font-size:13px;color:#c9c9e0;">Saldo tersedia: <b style="color:#ffd700;">USDT ${fmt(u.balance + u.profitBalance)}</b></div>
-    <div class="form-group"><label>Jumlah Penarikan (Rp)</label><input type="number" id="amount" min="10000" placeholder="Minimal USDT 3.00"></div>
+    <div style="text-align:center;margin-bottom:12px;font-size:13px;color:#c9c9e0;">Saldo tersedia: <b style="color:#ffd700;">Rp ${fmt(u.balance + u.profitBalance)}</b></div>
+    <div class="form-group"><label>Jumlah Penarikan (Rp)</label><input type="number" id="amount" min="10000" placeholder="Minimal Rp 10.000"></div>
     <div class="form-group"><label>Metode</label>
       <select id="method">
         <option value="Bank Transfer">Bank Transfer</option>
@@ -461,7 +461,7 @@ function renderAlamatPenarikan() {
     const method = wrap.querySelector('#method').value;
     const addr = wrap.querySelector('#addr').value.trim();
     const total = u.balance + u.profitBalance;
-    if (!amount || amount < 10000) return alert('Jumlah minimal USDT 3.00');
+    if (!amount || amount < 10000) return alert('Jumlah minimal Rp 10.000!');
     if (amount > total) return alert('Saldo tidak mencukupi!');
     if (!addr) return alert('Alamat tujuan wajib diisi!');
     // kurangi dari profit dulu, lalu modal
@@ -500,7 +500,7 @@ function renderRiwayatWithdraw() {
 }
 
 // ---------- 8. ALAMAT PENARIKAN ----------
-function renderAlamatWithdraw() {if (amount < 50000) { alert('Minimal USDT 3.00 bos!'); return; }
+function renderAlamatWithdraw() {
   const u = currentUser();
   const wrap = document.createElement('div');
   wrap.innerHTML = `
@@ -528,7 +528,7 @@ function renderProfit() {
   let rows = '';
   u.deposits.slice().reverse().forEach(d => {
     const daysActive = Math.min(30, Math.floor((Date.now() - d.date)/(1000*60*60*24)));
-    rows += `<tr><td>USDT ${fmt(d.amount)}</td><td>USDT ${fmt(d.accrued)}</td><td>${daysActive}/30 hari</td></tr>`;
+    rows += `<tr><td>Rp ${fmt(d.amount)}</td><td>Rp ${fmt(d.accrued)}</td><td>${daysActive}/30 hari</td></tr>`;
   });
   wrap.innerHTML = `
     <div class="header-row"><span class="back" id="back">←</span><h2 style="flex:1;text-align:center;">📈 Profit Harian 0.9%</h2></div>
@@ -560,13 +560,13 @@ function renderKomisi() {
   let hist = '';
   (u.comissionHistory || []).slice().reverse().forEach(c => {
     const tgl = new Date(c.date).toLocaleString('id-ID');
-    hist += `<tr><td>${tgl}</td><td>${c.from}</td><td>Usdt ${fmt(c.amount)}</td><td>Rp ${fmt(c.komisi)}</td></tr>`;
+    hist += `<tr><td>${tgl}</td><td>${c.from}</td><td>Rp ${fmt(c.amount)}</td><td>Rp ${fmt(c.komisi)}</td></tr>`;
   });
   wrap.innerHTML = `
     <div class="header-row"><span class="back" id="back">←</span><h2 style="flex:1;text-align:center;">🤝 Komisi 15%</h2></div>
     <div class="balance-box">
       <div class="label">TOTAL KOMISI</div>
-      <div class="amount">USDT ${fmt(totalKomisi)}</div>
+      <div class="amount">Rp ${fmt(totalKomisi)}</div>
     </div>
     <div class="info-box">
       📢 <b>Kode Referral Anda:</b> <span style="color:#ffd700;font-size:16px;">${u.refCode}</span><br>
